@@ -1,4 +1,29 @@
-body {
+.welcome {
+  width: 280px;
+  height: 350px;
+  position: relative;
+  padding: 1rem;
+  text-align: center;
+  .app_name {
+    margin-top: 4rem;
+  }
+  .copyright {
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    margin-bottom: 3rem;
+  }
+}
+
+.home {
   width: 400px;
   height: 500px;
+  padding: 1rem;
+  .form-check {
+    padding-left: 2rem;
+  }
+  .page-link {
+    cursor: pointer;
+  }
 }

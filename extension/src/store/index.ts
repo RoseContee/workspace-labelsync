@@ -1,24 +1,35 @@
 import { createStore } from 'vuex';
 
-type IStateType = 'users' | 'labels';
+export type IUsers = {
+  name: string;
+  email: string;
+  isAdmin: boolean;
+}[];
+
+interface IState {
+  users: IUsers;
+  selectedUsers: string[];
+}
 
 const store = createStore({
   state: {
     users: [],
-    labels: [],
-  },
+    selectedUsers: [],
+  } as IState,
   getters: {
-    data: (state) => (which: IStateType) => state[which],
+    users: (state) => state.users,
+    selectedUsers: (state) => state.selectedUsers,
   },
   mutations: {
     SET_USERS: (state, users) => (state.users = users),
-    SET_LABELS: (state, labels) => (state.labels = labels),
+    SET_SELECTED_USERS: (state, users) => (state.selectedUsers = users),
   },
   actions: {
-    getState: async ({ commit }, data) => {
-      const { users, labels } = data;
+    setUsers: ({ commit }, users) => {
       commit('SET_USERS', users);
-      commit('SET_LABELS', labels);
+    },
+    setSelectedUsers: ({ commit }, users) => {
+      commit('SET_SELECTED_USERS', users);
     },
   },
   modules: {},

@@ -9,7 +9,8 @@
   "action": {
     "default_popup": "popup.html"
   },
-  "permissions": ["identity", "storage"],
+  "host_permissions": ["https://admin.labelsync.it/*"],
+  "permissions": ["identity", "storage", "alarms"],
   "content_security_policy": {
     "extension_pages": "script-src 'self'; object-src 'self'"
   }

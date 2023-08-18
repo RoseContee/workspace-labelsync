@@ -3,13 +3,11 @@ interface IStorageItem {
   [key: string]: any;
 }
 
-type IStorageKey = string | string[];
-
 const ChromeService = {
   launchWebAuthFlow: (url: string) => chrome.identity.launchWebAuthFlow({ url: url, interactive: true }),
   save: (item: IStorageItem) => chrome.storage.local.set(item),
   get: async (item: IStorageItem) => await chrome.storage.local.get(item),
-  remove: (keys: IStorageKey) => chrome.storage.local.remove(keys),
+  remove: (keys: string | string[]) => chrome.storage.local.remove(keys),
   send: (message: object) => chrome.runtime.sendMessage(message, () => chrome.runtime.lastError),
   lastError: () => chrome.runtime.lastError,
 };

@@ -2,7 +2,13 @@
 class AjaxService {
   private static fetch(url: string, config: any) {
     return new Promise((resolve) => {
-      fetch(url, {
+      const requestURl = new URL(url);
+      if (config.params) {
+        Object.keys(config.params).forEach((key) => {
+          requestURl.searchParams.append(key, config.params[key]);
+        });
+      }
+      fetch(requestURl, {
         ...config,
         headers: {
           accept: 'application/json, text/plain, */*',
@@ -22,9 +28,11 @@ class AjaxService {
         });
     });
   }
+
   static get(url: string, config: any = {}) {
     return this.fetch(url, { ...config, method: 'GET' });
   }
+
   static post(url: string, body: any, config: any = {}) {
     return this.fetch(url, { ...config, method: 'POST', body: JSON.stringify(body) });
   }
