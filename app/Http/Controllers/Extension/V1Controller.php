@@ -20,12 +20,14 @@ class V1Controller extends Controller
             ]);
         }
         if ($license['end_at'] < now()) {
+            SyncLabel::where('email', $email)->delete();
             return response()->json([
                 'success' => false,
                 'error' => 'Your license key has expired.',
             ]);
         }
         if (!$license['active']) {
+            SyncLabel::where('email', $email)->delete();
             $contact_email = Setting::getSetting('contact_email');
             return response()->json([
                 'success' => false,
@@ -57,7 +59,13 @@ class V1Controller extends Controller
         if (!$users || !is_array($users)) $users = [];
         $labels = $request['labels'];
         if (!$labels || !is_array($labels)) $labels = [];
-        if (!$key || !$email || !License::whose($email)->key($key)->where('end_at', '>', now())->active()->first()) {
+        if (!$key || !$email || !($license = License::whose($email)->key($key)->first())) {
+            return response()->json([
+                'success' => false,
+            ]);
+        }
+        if ($license['end_at'] < now() || !$license['active']) {
+            SyncLabel::where('email', $email)->delete();
             return response()->json([
                 'success' => false,
             ]);
@@ -93,10 +101,13 @@ class V1Controller extends Controller
     public function getLabels(Request $request) {
         $email = $request['email'];
         $syncLabels = SyncLabel::member($email)->get();
-        logger($email);
-        logger($syncLabels);
         $labels = [];
         foreach ($syncLabels as $syncLabel) {
+            $license = License::whose($syncLabel['email'])->first();
+            if (!$license || $license['end_at'] < now() || !$license['active']) {
+                $syncLabel->delete();
+                continue;
+            }
             $tempLabels = json_decode($syncLabel['labels'], true) ?? [];
             if (!is_array($tempLabels)) $tempLabels = [];
             foreach ($tempLabels as $tempLabel) {
