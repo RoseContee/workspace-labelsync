@@ -93,6 +93,8 @@ class V1Controller extends Controller
     public function getLabels(Request $request) {
         $email = $request['email'];
         $syncLabels = SyncLabel::member($email)->get();
+        logger($email);
+        logger($syncLabels);
         $labels = [];
         foreach ($syncLabels as $syncLabel) {
             $tempLabels = json_decode($syncLabel['labels'], true) ?? [];
