@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Extension\V1Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -14,6 +15,19 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
-    return $request->user();
+/*
+ * Extension Route
+ */
+Route::group([
+    'namespace' => 'Extension',
+    'prefix' => 'app',
+], function() {
+    Route::group([
+        'prefix'    => 'v1',
+    ], function() {
+        Route::post('submit-key', [V1Controller::class, 'submitKey']);
+        Route::post('recover-key', [V1Controller::class, 'recoverKey']);
+        Route::post('admin-sync', [V1Controller::class, 'adminSync']);
+        Route::get('labels', [V1Controller::class, 'getLabels']);
+    });
 });

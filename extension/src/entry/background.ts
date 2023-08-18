@@ -1,7 +1,7 @@
 import ChromeService from '@/service/chrome-service';
 import GoogleService from '@/service/google-service';
 import LabelsyncService from '@/service/labelsync-service';
-import { IUsers } from '@/store';
+import { IUser } from '@/store';
 
 const SYNC_PERIOD = 1; //60 * 12 // minutes
 
@@ -36,7 +36,7 @@ chrome.alarms.onAlarm.addListener(async (alarm) => {
   }
 });
 
-const adminSync = async (email: string, users: IUsers, labels: string[]) => {
+const adminSync = async (email: string, users: IUser[], labels: string[]) => {
   const { selectedUsers } = await ChromeService.get({ selectedUsers: [] });
   let newUsers = [...selectedUsers];
   (selectedUsers as string[]).forEach((email) => {

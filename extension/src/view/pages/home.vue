@@ -1,6 +1,16 @@
 <template>
   <div class="home">
     <div class="row">
+      <div class="col-12 mb-2 small">
+        <div class="text-success" v-if="licenseInfo && licenseInfo.success">
+          Your license key will expire on <b>{{ UtilsService.dateFormat(licenseInfo.expires_on) }}</b
+          >.
+        </div>
+        <div class="text-danger" v-else>
+          <span v-if="licenseInfo">{{ licenseInfo.error }}</span>
+          <router-link :to="{ name: 'subscription' }">Enter license key here.</router-link>
+        </div>
+      </div>
       <div class="col-12">
         <h5 class="text-center fw-bold mb-1">Select sync users</h5>
         <table class="table table-striped table-bordered table-sm">
@@ -67,11 +77,14 @@
 <script setup lang="ts">
 import { computed, ref } from 'vue';
 import { useStore } from 'vuex';
-import { IUsers } from '@/store';
+import { IUser } from '@/store';
 import ChromeService from '@/service/chrome-service';
+import UtilsService from '@/service/utils-service';
+import { ILicenseResponse } from '@/service/labelsync-service';
 
 const store = useStore();
 
+const licenseInfo = computed(() => store.getters.licenseInfo as ILicenseResponse);
 const per_page = ref(10);
 const current_page = ref(1);
 const filteredUsers = computed(() => {
@@ -80,7 +93,7 @@ const filteredUsers = computed(() => {
   });
 });
 const users = computed(() => {
-  return (store.getters.users as IUsers).filter((user) => !user.isAdmin);
+  return (store.getters.users as IUser[]).filter((user) => !user.isAdmin);
 });
 const selectedUsers = computed(() => store.getters.selectedUsers as string[]);
 const all = computed(() => {

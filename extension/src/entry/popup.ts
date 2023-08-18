@@ -19,6 +19,11 @@ const router = createRouter({
       name: 'home',
       component: () => import('../view/pages/home.vue'),
     },
+    {
+      path: '/subscription',
+      name: 'subscription',
+      component: () => import('../view/pages/subscription.vue'),
+    },
   ],
 });
 

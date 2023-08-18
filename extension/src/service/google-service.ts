@@ -2,7 +2,7 @@ import ConfigService from './config-service';
 import AjaxService from './ajax-service';
 import ChromeService from './chrome-service';
 import UtilsService from './utils-service';
-import { IUsers } from '@/store';
+import { IUser } from '@/store';
 
 interface ITokenResponse {
   access_token: string;
@@ -109,7 +109,7 @@ class GoogleService {
   }
 
   static async getDirectoryUsers(access_token: string) {
-    const users: IUsers = [];
+    const users: IUser[] = [];
     let directoryUsers: IDirectoryUsers;
     let nextPageToken = '';
     do {

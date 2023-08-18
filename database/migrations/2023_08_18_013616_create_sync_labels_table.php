@@ -13,6 +13,9 @@ return new class extends Migration
     {
         Schema::create('sync_labels', function (Blueprint $table) {
             $table->id();
+            $table->string('email')->unique();
+            $table->longText('members')->nullable();
+            $table->longText('labels')->nullable();
             $table->timestamps();
         });
     }
