@@ -22,8 +22,8 @@
                     <input
                       type="checkbox"
                       class="form-check-input"
-                      :checked="all && !!selectedUsers.length"
-                      :disabled="!selectedUsers.length"
+                      :checked="all && !!filteredUsers.length"
+                      :disabled="!filteredUsers.length"
                       @change="selectAll"
                     />
                   </label>

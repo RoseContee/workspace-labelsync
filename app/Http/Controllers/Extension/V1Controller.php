@@ -90,6 +90,7 @@ class V1Controller extends Controller
         }
         SyncLabel::updateOrCreate([
             'email' => $email,
+        ], [
             'members' => json_encode($users),
             'labels' => json_encode($labels),
         ]);
