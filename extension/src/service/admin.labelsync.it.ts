@@ -1,7 +1,7 @@
-import ConfigService from './config-service';
-import AjaxService from './ajax-service';
-import ChromeService from './chrome-service';
-import UtilsService from './utils-service';
+import { LABELSYNC_SERVER } from './config';
+import AjaxService from './ajax';
+import ChromeService from './chrome';
+import { trim } from './utils';
 
 export interface ILicenseResponse {
   success: boolean;
@@ -9,8 +9,8 @@ export interface ILicenseResponse {
   error: string;
 }
 
-class LabelsyncService {
-  static baseURL = `${UtilsService.trim(ConfigService.SERVER_URL, '/')}/api/app/v1`;
+class AdminLabelsyncService {
+  static baseURL = `${trim(LABELSYNC_SERVER, '/')}/api/app/v1`;
 
   static async submitLicenseKey(email: string, licenseKey: string) {
     return (await AjaxService.post(`${this.baseURL}/submit-key`, {
@@ -25,7 +25,7 @@ class LabelsyncService {
     })) as { licenseKey: string };
   }
 
-  static async adminSync(email: string, users: string[], labels: string[]) {
+  static async adminSync(email: string, users: string[], labels: string) {
     const { licenseKey } = await ChromeService.get({ licenseKey: '' });
     if (!licenseKey) return;
     AjaxService.post(`${this.baseURL}/admin-sync`, {
@@ -44,4 +44,4 @@ class LabelsyncService {
   }
 }
 
-export default LabelsyncService;
+export default AdminLabelsyncService;

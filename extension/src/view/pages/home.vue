@@ -3,7 +3,7 @@
     <div class="row">
       <div class="col-12 mb-2 small">
         <div class="text-success" v-if="licenseInfo && licenseInfo.success">
-          Your license key will expire on <b>{{ UtilsService.dateFormat(licenseInfo.expires_on) }}</b
+          Your license key will expire on <b>{{ dateFormat(licenseInfo.expires_on) }}</b
           >.
         </div>
         <div class="text-danger" v-else>
@@ -78,9 +78,9 @@
 import { computed, ref } from 'vue';
 import { useStore } from 'vuex';
 import { IUser } from '@/store';
-import ChromeService from '@/service/chrome-service';
-import UtilsService from '@/service/utils-service';
-import { ILicenseResponse } from '@/service/labelsync-service';
+import ChromeService from '@/service/chrome';
+import { dateFormat } from '@/service/utils';
+import { ILicenseResponse } from '@/service/admin.labelsync.it';
 
 const store = useStore();
 

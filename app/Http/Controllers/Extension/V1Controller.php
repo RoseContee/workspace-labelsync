@@ -11,27 +11,28 @@ use Illuminate\Http\Request;
 class V1Controller extends Controller
 {
     public function submitKey(Request $request) {
-        $email = $request['email'];
-        $key = $request['key'];
-        if (!$email || !$key || !($license = License::whose($email)->key($key)->first())) {
+        if (!($email = $request['email'])
+            || !($key = $request['key'])
+            || !($license = License::whose($email)->key($key)->first())
+        ) {
             return response()->json([
                 'success' => false,
                 'error' => null,
             ]);
         }
-        if ($license['end_at'] < now()) {
+        if (($isExpired = $license['end_at'] < now()) || !$license['active']) {
             SyncLabel::where('email', $email)->delete();
+            if ($isExpired) {
+                $error = 'Your license key has expired.';
+            } else {
+                $error = 'Your license key has deactivated.';
+                if (($contact_email = Setting::getSetting('contact_email'))) {
+                    $error .= " Please contact {$contact_email}.";
+                }
+            }
             return response()->json([
                 'success' => false,
-                'error' => 'Your license key has expired.',
-            ]);
-        }
-        if (!$license['active']) {
-            SyncLabel::where('email', $email)->delete();
-            $contact_email = Setting::getSetting('contact_email');
-            return response()->json([
-                'success' => false,
-                'error' => 'Your license key has deactivated. Please contact '.$contact_email.'.',
+                'error' => $error,
             ]);
         }
         return response()->json([
@@ -41,8 +42,9 @@ class V1Controller extends Controller
     }
 
     public function recoverKey(Request $request) {
-        $email = $request['email'];
-        if (!$email || !($license = License::whose($email)->where('end_at', '>', now())->active()->first())) {
+        if (!($email = $request['email'])
+            || !($license = License::whose($email)->where('end_at', '>', now())->active()->first())
+        ) {
             return response()->json([
                 'licenseKey' => null,
             ]);
@@ -53,37 +55,29 @@ class V1Controller extends Controller
     }
 
     public function adminSync(Request $request) {
-        $key = $request['key'];
-        $email = $request['email'];
-        $users = $request['users'];
-        if (!$users || !is_array($users)) $users = [];
-        $labels = $request['labels'];
-        if (!$labels || !is_array($labels)) $labels = [];
-        if (!$key || !$email || !($license = License::whose($email)->key($key)->first())) {
+        if (!($email = $request['email'])
+            || !($key = $request['key'])
+            || !isset($request['users'])
+            || !is_array($users = $request['users'])
+            || !($labels = $request['labels'] ?? '{}')
+            || !is_string($labels)
+            || !($license = License::whose($email)->key($key)->first())
+            || $license['end_at'] < now()
+            || !$license['active']
+        ) {
+            if (!empty($license)) SyncLabel::where('email', $email)->delete();
             return response()->json([
                 'success' => false,
             ]);
         }
-        if ($license['end_at'] < now() || !$license['active']) {
-            SyncLabel::where('email', $email)->delete();
-            return response()->json([
-                'success' => false,
-            ]);
-        }
-        $valid = true;
+        $error = false;
         foreach ($users as $user) {
             if (filter_var($user, FILTER_VALIDATE_EMAIL) === false) {
-                $valid = false;
+                $error = true;
                 break;
             }
         }
-        foreach ($labels as $label) {
-            if (gettype($label) != 'string') {
-                $valid = false;
-                break;
-            }
-        }
-        if (!$valid) {
+        if ($error) {
             return response()->json([
                 'success' => false,
             ]);
@@ -92,7 +86,7 @@ class V1Controller extends Controller
             'email' => $email,
         ], [
             'members' => json_encode($users),
-            'labels' => json_encode($labels),
+            'labels' => $labels,
         ]);
         return response()->json([
             'success' => true,
@@ -100,22 +94,22 @@ class V1Controller extends Controller
     }
 
     public function getLabels(Request $request) {
-        $email = $request['email'];
+        if (!($email = $request['email'])
+            || filter_var($email, FILTER_VALIDATE_EMAIL) === false
+        ) {
+            return response()->json([]);
+        }
         $syncLabels = SyncLabel::member($email)->get();
         $labels = [];
-        foreach ($syncLabels as $syncLabel) {
-            $license = License::whose($syncLabel['email'])->first();
-            if (!$license || $license['end_at'] < now() || !$license['active']) {
-                $syncLabel->delete();
+        foreach ($syncLabels as $item) {
+            if (!($license = License::whose($item['email'])->first())
+                || $license['end_at'] < now()
+                || !$license['active']
+            ) {
+                $item->delete();
                 continue;
             }
-            $tempLabels = json_decode($syncLabel['labels'], true) ?? [];
-            if (!is_array($tempLabels)) $tempLabels = [];
-            foreach ($tempLabels as $tempLabel) {
-                if (gettype($tempLabel) === 'string') {
-                    $labels[] = $tempLabel;
-                }
-            }
+            $labels[] = $item['labels'];
         }
         return response()->json([
             'labels' => $labels,

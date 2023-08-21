@@ -30,9 +30,9 @@
 import { ref, onBeforeMount } from 'vue';
 import { useStore } from 'vuex';
 import { useRouter } from 'vue-router';
-import GoogleService from '@/service/google-service';
-import LabelsyncService from '@/service/labelsync-service';
-import ChromeService from '@/service/chrome-service';
+import GoogleService from '@/service/google';
+import AdminLabelsyncItService from '@/service/admin.labelsync.it';
+import ChromeService from '@/service/chrome';
 
 const store = useStore();
 const router = useRouter();
@@ -60,7 +60,7 @@ function submitLicenseKey() {
   if (!userEmail.value || !licenseKey.value) return;
   disableSubmit.value = true;
   license_error.value = '';
-  LabelsyncService.submitLicenseKey(userEmail.value, licenseKey.value).then((response) => {
+  AdminLabelsyncItService.submitLicenseKey(userEmail.value, licenseKey.value).then((response) => {
     disableSubmit.value = false;
     if (response.success) {
       ChromeService.save({ licenseKey: licenseKey.value });
@@ -80,7 +80,7 @@ function recoverLicenseKey() {
   }
   disableRecover.value = true;
   email_error.value = '';
-  LabelsyncService.recoverLicenseKey(email.value).then((response) => {
+  AdminLabelsyncItService.recoverLicenseKey(email.value).then((response) => {
     disableRecover.value = false;
     if (response.licenseKey) recoveredKey.value = response.licenseKey;
     else email_error.value = 'Cannot find your information.';

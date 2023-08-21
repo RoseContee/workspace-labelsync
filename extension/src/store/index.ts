@@ -1,5 +1,5 @@
 import { createStore } from 'vuex';
-import { ILicenseResponse } from '@/service/labelsync-service';
+import { ILicenseResponse } from '@/service/admin.labelsync.it';
 
 export interface IUser {
   name: string;

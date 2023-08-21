@@ -1,14 +1,20 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
+
 class AjaxService {
   private static fetch(url: string, config: any) {
     return new Promise((resolve) => {
-      const requestURl = new URL(url);
+      const requestURL = new URL(url);
       if (config.params) {
         Object.keys(config.params).forEach((key) => {
-          requestURl.searchParams.append(key, config.params[key]);
+          const value = config.params[key];
+          if (Array.isArray(value)) {
+            value.forEach((val) => requestURL.searchParams.append(key, val));
+          } else {
+            requestURL.searchParams.append(key, value);
+          }
         });
       }
-      fetch(requestURl, {
+      fetch(requestURL, {
         ...config,
         headers: {
           accept: 'application/json, text/plain, */*',
