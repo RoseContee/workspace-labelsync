@@ -15,10 +15,11 @@ return new class extends Migration
             $table->id();
             $table->string('email')->unique();
             $table->string('key');
-            $table->dateTime('end_at');
+            $table->dateTime('expires_on');
             $table->boolean('active')->default(true);
             $table->integer('membership_id')->nullable();
             $table->string('transaction_id')->nullable();
+            $table->text('note')->nullable();
             $table->timestamps();
         });
     }

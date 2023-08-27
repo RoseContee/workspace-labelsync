@@ -251,7 +251,7 @@ export interface IPerson {
 }
 
 export interface IGroupPersons {
-  [group: string]: {
+  [label: string]: {
     resourceName?: string;
     persons: IPerson[];
   };

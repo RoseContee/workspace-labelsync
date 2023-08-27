@@ -16,10 +16,11 @@ class LicenseSeeder extends Seeder
         License::create([
             'email' => 'pierluigi.pisanti@aforadsudmilano.org',
             'key' => 'CF17-171B-4F4F-809B',
-            'end_at' => '2023-12-31 23:59:59',
+            'expires_on' => '2023-12-31 23:59:59',
             'active' => true,
             'membership_id' => null,
             'transaction_id' => null,
+            'note' => null,
         ]);
     }
 }

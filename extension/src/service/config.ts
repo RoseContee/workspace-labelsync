@@ -12,3 +12,5 @@ export const getAppURL = async () => {
   const { id } = await getAppInfo();
   return `https://${id}.chromiumapp.org/`;
 };
+
+export const SYNC_PERIOD = 2; //60 * 12 // minutes

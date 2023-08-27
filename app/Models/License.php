@@ -10,7 +10,7 @@ class License extends Model
     use HasFactory;
 
     protected $fillable = [
-        'email', 'key', 'end_at', 'active', 'membership_id', 'transaction_id',
+        'email', 'key', 'expires_on', 'active', 'membership_id', 'transaction_id', 'note',
     ];
 
     public function scopeWhose($query, $email) {
@@ -30,6 +30,6 @@ class License extends Model
     }
 
     public function transaction() {
-        return $this->belongsTo(Transaction::class);
+        return $this->belongsTo(Transaction::class, 'transaction_id', 'transaction_id');
     }
 }

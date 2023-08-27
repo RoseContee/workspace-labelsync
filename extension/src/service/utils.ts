@@ -13,6 +13,15 @@ export const dateFormat = (time: number) => {
   return `${date.getMonth() + 1}/${date.getDate()}/${date.getFullYear()}`;
 };
 
+const pad = (num: number) => {
+  return `0${num}`.slice(-2);
+};
+
+export const dateTimeformat = (time: number) => {
+  const date = new Date(time);
+  return `${dateFormat(time)} ${pad(date.getHours())}:${pad(date.getMinutes())}:${pad(date.getSeconds())}`;
+};
+
 export const trim = (value: string, charsets: string) => {
   return rtrim(ltrim(value, charsets), charsets);
 };

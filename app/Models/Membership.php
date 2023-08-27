@@ -11,7 +11,9 @@ class Membership extends Model
     use HasFactory, SoftDeletes;
 
     protected $fillable = [
-        'name', 'description', 'price', 'origin_price', 'period', 'unit', 'active',
+        'name', 'price', 'origin_price', 'period', 'unit',
+        'supported_features', 'unsupported_features', 'description',
+        'featured', 'active',
     ];
 
     public function scopeActive($query) {

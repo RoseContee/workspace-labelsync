@@ -43,14 +43,13 @@ class Setting extends Model
      */
     public static function saveSetting($key, $value = null) {
         if (is_array($key)) {
-            $settings = [];
             foreach ($key as $k => $v) {
-                $settings[] = [
+                self::updateOrCreate([
                     'key'   => $k,
-                    'value' => $v
-                ];
+                ], [
+                    'value' => $v,
+                ]);
             }
-            self::upsert($settings, ['key'], ['value']);
         } else if (gettype($key) == 'string') {
             self::updateOrCreate([
                 'key'   => $key,

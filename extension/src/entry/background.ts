@@ -2,9 +2,8 @@ import ChromeService from '@/service/chrome';
 import GoogleService, { IGroupPersons, IPerson } from '@/service/google';
 import AdminLabelsyncItService from '@/service/admin.labelsync.it';
 import { sleep } from '@/service/utils';
+import { SYNC_PERIOD } from '@/service/config';
 import { IUser } from '@/store';
-
-const SYNC_PERIOD = 5; //60 * 12 // minutes
 
 const createAlarm = () => {
   chrome.alarms.create('labelsync', {
@@ -22,9 +21,15 @@ chrome.runtime.onStartup.addListener(async () => {
   if (Date.now() - lastSyncTime > SYNC_PERIOD) createAlarm();
 });
 
+chrome.runtime.onMessage.addListener((message) => {
+  if (message.signal === 'StartSync') createAlarm();
+});
+
 chrome.alarms.onAlarm.addListener(async (alarm) => {
   console.log('Running Labelsync...');
-  ChromeService.save({ lastSyncTime: alarm.scheduledTime });
+  ChromeService.save({ lastSyncTime: alarm.scheduledTime, syncStarted: true }).then(() => {
+    ChromeService.send({ signal: 'RunningSync' });
+  });
   runSync();
 });
 
@@ -43,17 +48,18 @@ const runSync = async () => {
 
 const syncAdmin = async (email: string, users: IUser[], groupPersons: IGroupPersons) => {
   try {
-    const { selectedUsers } = await ChromeService.get({ selectedUsers: [] });
-    let newUsers = [...selectedUsers];
-    (selectedUsers as string[]).forEach((email) => {
-      if (!users.find((user) => user.email == email && !user.isAdmin)) {
-        newUsers = newUsers.filter((user) => user != email);
-      }
+    const { selectedUsers, selectedLabels } = await ChromeService.get({ selectedUsers: [], selectedLabels: [] });
+    const newUsers = (selectedUsers as string[]).filter((email) => {
+      return users.find((user) => user.email === email && !user.isAdmin);
     });
-    for (const key in groupPersons) {
-      delete groupPersons[key].resourceName;
-    }
-    AdminLabelsyncItService.adminSync(email, newUsers, JSON.stringify(groupPersons));
+    const newLabels = (selectedLabels as string[]).reduce(
+      (obj, label) => ({
+        ...obj,
+        ...(groupPersons[label] ? { [label]: { persons: groupPersons[label].persons } } : {}),
+      }),
+      {},
+    );
+    AdminLabelsyncItService.adminSync(email, newUsers, JSON.stringify(newLabels));
   } catch (ex) {
     console.error('syncAdmin error: ', ex);
   }

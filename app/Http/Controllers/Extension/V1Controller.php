@@ -20,7 +20,7 @@ class V1Controller extends Controller
                 'error' => null,
             ]);
         }
-        if (($isExpired = $license['end_at'] < now()) || !$license['active']) {
+        if (($isExpired = $license['expires_on'] < now()) || !$license['active']) {
             SyncLabel::where('email', $email)->delete();
             if ($isExpired) {
                 $error = 'Your license key has expired.';
@@ -37,13 +37,13 @@ class V1Controller extends Controller
         }
         return response()->json([
             'success' => true,
-            'expires_on' => strtotime($license['end_at']) * 1000,
+            'expires_on' => strtotime($license['expires_on']) * 1000,
         ]);
     }
 
     public function recoverKey(Request $request) {
         if (!($email = $request['email'])
-            || !($license = License::whose($email)->where('end_at', '>', now())->active()->first())
+            || !($license = License::whose($email)->where('expires_on', '>', now())->active()->first())
         ) {
             return response()->json([
                 'licenseKey' => null,
@@ -62,7 +62,7 @@ class V1Controller extends Controller
             || !($labels = $request['labels'] ?? '{}')
             || !is_string($labels)
             || !($license = License::whose($email)->key($key)->first())
-            || $license['end_at'] < now()
+            || $license['expires_on'] < now()
             || !$license['active']
         ) {
             if (!empty($license)) SyncLabel::where('email', $email)->delete();
@@ -103,7 +103,7 @@ class V1Controller extends Controller
         $labels = [];
         foreach ($syncLabels as $item) {
             if (!($license = License::whose($item['email'])->first())
-                || $license['end_at'] < now()
+                || $license['expires_on'] < now()
                 || !$license['active']
             ) {
                 $item->delete();

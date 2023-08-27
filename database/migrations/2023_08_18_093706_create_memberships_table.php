@@ -14,11 +14,14 @@ return new class extends Migration
         Schema::create('memberships', function (Blueprint $table) {
             $table->id();
             $table->string('name');
-            $table->text('description')->nullable();
             $table->decimal('price');
-            $table->decimal('origin_price');
+            $table->decimal('origin_price')->nullable();
             $table->tinyInteger('period');
-            $table->enum('unit', ['month', 'year', 'day']);
+            $table->enum('unit', ['year', 'month', 'day']);
+            $table->text('supported_features')->nullable();
+            $table->text('unsupported_features')->nullable();
+            $table->text('description')->nullable();
+            $table->boolean('featured')->default(false);
             $table->boolean('active')->default(true);
             $table->timestamps();
             $table->softDeletes();

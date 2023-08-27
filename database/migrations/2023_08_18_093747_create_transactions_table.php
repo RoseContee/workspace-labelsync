@@ -15,11 +15,11 @@ return new class extends Migration
             $table->id();
             $table->string('transaction_id');
             $table->string('email');
-            $table->integer('membership_id')->nullable();
             $table->decimal('amount');
             $table->integer('period');
             $table->string('unit');
-            $table->dateTime('started_at')->nullable();
+            $table->integer('membership_id')->nullable();
+            $table->dateTime('start_at')->nullable();
             $table->dateTime('end_at')->nullable();
             $table->enum('type', ['start', 'recurring']);
             $table->enum('status', ['pending', 'completed', 'canceled', 'expired']);

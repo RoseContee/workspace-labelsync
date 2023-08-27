@@ -64,6 +64,7 @@ function submitLicenseKey() {
     disableSubmit.value = false;
     if (response.success) {
       ChromeService.save({ licenseKey: licenseKey.value });
+      ChromeService.send({ signal: 'StartSync' });
       store.dispatch('setLicenseInfo', response);
       router.push({ name: 'home' });
       return;

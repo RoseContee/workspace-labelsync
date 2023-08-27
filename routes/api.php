@@ -19,7 +19,6 @@ use Illuminate\Support\Facades\Route;
  * Extension Route
  */
 Route::group([
-    'namespace' => 'Extension',
     'prefix' => 'app',
 ], function() {
     Route::group([

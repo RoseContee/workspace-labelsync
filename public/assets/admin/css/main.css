@@ -1,0 +1,12 @@
+.required {
+    color: #dc3545 !important;
+}
+
+.origin-price {
+    text-decoration: line-through;
+    color: #dc3545;
+}
+
+.unsupported-features {
+    text-decoration: line-through;
+}
