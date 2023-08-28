@@ -8,6 +8,8 @@ use App\Http\Controllers\Home\TransactionController;
 use App\Http\Controllers\Home\ContactController;
 use App\Http\Controllers\Home\SettingsController;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\Subscribe\IndexController as SubscribeController;
+use App\Http\Controllers\Subscribe\PaypalController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -25,6 +27,12 @@ Route::get('/', [HomeController::class, 'index'])->name('home');
 Route::post('contact', [HomeController::class, 'contact'])->name('contact');
 Route::get('terms', [HomeController::class, 'terms'])->name('terms');
 Route::get('privacy', [HomeController::class, 'privacy'])->name('privacy');
+
+Route::post('subscribe', [SubscribeController::class, 'subscribe'])->name('subscribe');
+Route::get('subscribe/cancel', [SubscribeController::class, 'cancel'])->name('subscribe.cancel');
+
+Route::get('subscribe/paypal/success', [PaypalController::class, 'success'])->name('subscribe.paypal.success');
+Route::post('subscribe/paypal/webhook', [PaypalController::class, 'webhook'])->name('subscribe.paypal.webhook');
 
 
 Route::group([

@@ -9,7 +9,9 @@ use Illuminate\Http\Request;
 class HomeController extends Controller
 {
     public function index() {
-        $plans = Membership::active()->get();
+        $plans = Membership::active()
+            ->where('paypal_subscription_id', '!=', '')
+            ->get();
         return view('index', [
             'plans' => $plans,
         ]);

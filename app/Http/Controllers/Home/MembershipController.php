@@ -33,6 +33,7 @@ class MembershipController extends Controller
             'period' => ['required', 'numeric'],
             'unit' => ['required', 'in:year,month,day'],
             'supported_features' => ['required'],
+            'paypal_subscription_id' => ['required'],
         ]);
         Membership::create([
             'name' => $request['name'],
@@ -45,6 +46,7 @@ class MembershipController extends Controller
             'description' => $request['description'],
             'featured' => !empty($request['featured']),
             'active' => !empty($request['status']),
+            'paypal_subscription_id' => $request['paypal_subscription_id'],
         ]);
         return redirect()->route('memberships.index')
             ->with('success_message', 'New membership has been created.');
@@ -72,6 +74,7 @@ class MembershipController extends Controller
             'period' => ['required', 'numeric'],
             'unit' => ['required', 'in:year,month,day'],
             'supported_features' => ['required'],
+            'paypal_subscription_id' => ['required'],
         ]);
         $membership['name'] = $request['name'];
         $membership['price'] = $request['price'];
@@ -83,6 +86,7 @@ class MembershipController extends Controller
         $membership['description'] = $request['description'];
         $membership['featured'] = !empty($request['featured']);
         $membership['active'] = !empty($request['status']);
+        $membership['paypal_subscription_id'] = $request['paypal_subscription_id'];
         $membership->save();
         return back()->with('info_message', 'Membership has been updated.');
     }

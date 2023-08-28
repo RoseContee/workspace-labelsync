@@ -27,6 +27,7 @@ Standard Support',
             'description' => null,
             'featured' => false,
             'active' => true,
+            'paypal_subscription_id' => '',
         ]);
 
         Membership::create([
@@ -44,6 +45,7 @@ Standard Support',
             'description' => null,
             'featured' => true,
             'active' => true,
+            'paypal_subscription_id' => '',
         ]);
 
         Membership::create([
@@ -61,6 +63,7 @@ On.site support (optional)',
             'description' => null,
             'featured' => false,
             'active' => true,
+            'paypal_subscription_id' => '',
         ]);
     }
 }

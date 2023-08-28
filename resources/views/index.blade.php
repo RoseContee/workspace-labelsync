@@ -279,25 +279,29 @@
                     <div class="col-lg-4 @if ($index > 0) mt-4 mt-lg-0 @endif"
                          data-aos="fade-up"
                          data-aos-delay="{{ ($index + 1) * 100 }}">
-                        <div class="box @if ($plan['featured']) featured @endif">
-                            <h3>{{ $plan['name'] }}</h3>
-                            <h4><sup>{{ $plan['currency'] }}</sup>{{ $plan['price'] }}<span>per {{ $plan['unit'] }}/user</span></h4>
-                            <ul>
-                                @if ($plan['supported_features'])
-                                    @php $supported = explode("\n", $plan['supported_features']); @endphp
-                                    @foreach ($supported as $item)
-                                        <li><i class="bx bx-check"></i> {{ $item }}</li>
-                                    @endforeach
-                                @endif
-                                @if ($plan['unsupported_features'])
-                                    @php $unsupported = explode("\n", $plan['unsupported_features']); @endphp
-                                    @foreach ($unsupported as $item)
-                                        <li class="na"><i class="bx bx-x"></i> <span>{{ $item }}</span></li>
-                                    @endforeach
-                                @endif
-                            </ul>
-                            <a href="" class="buy-btn">Subscribe Now</a>
-                        </div>
+                        <form action="{{ route('subscribe') }}" method="POST">
+                            @csrf
+                            <input type="hidden" name="plan" value="{{ $plan['id'] }}">
+                            <div class="box @if ($plan['featured']) featured @endif">
+                                <h3>{{ $plan['name'] }}</h3>
+                                <h4><sup>{{ $plan['currency'] }}</sup>{{ $plan['price'] }}<span>per {{ $plan['unit'] }}/user</span></h4>
+                                <ul>
+                                    @if ($plan['supported_features'])
+                                        @php $supported = explode("\n", $plan['supported_features']); @endphp
+                                        @foreach ($supported as $item)
+                                            <li><i class="bx bx-check"></i> {{ $item }}</li>
+                                        @endforeach
+                                    @endif
+                                    @if ($plan['unsupported_features'])
+                                        @php $unsupported = explode("\n", $plan['unsupported_features']); @endphp
+                                        @foreach ($unsupported as $item)
+                                            <li class="na"><i class="bx bx-x"></i> <span>{{ $item }}</span></li>
+                                        @endforeach
+                                    @endif
+                                </ul>
+                                <button type="submit" class="buy-btn">Subscribe Now</button>
+                            </div>
+                        </form>
                     </div>
                 @endforeach
             </div>

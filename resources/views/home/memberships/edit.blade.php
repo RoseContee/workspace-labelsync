@@ -120,10 +120,10 @@
                                         </div>
                                     </div>
                                     <div class="form-group">
-                                        <label for="supported_features">Supported Features</label>
+                                        <label for="supported_features">Supported Features <span class="required">*</span></label>
                                         <textarea id="supported_features" name="supported_features"
                                                   class="form-control @error('supported_features') is-invalid @enderror"
-                                                  rows="4"
+                                                  rows="4" required
                                                   placeholder="Supported Features..."
                                         >{{ old('supported_features', $membership['supported_features'] ?? '') }}</textarea>
                                         @error('supported_features')
@@ -143,6 +143,18 @@
                                             <label for="unsupported_features" class="text-danger small mb-0 font-weight-normal">
                                                 {{ $message }}
                                             </label>
+                                        @enderror
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="paypal_subscription_id">PayPal Subscription ID <span class="required">*</span></label>
+                                        <input type="text" id="paypal_subscription_id" name="paypal_subscription_id"
+                                               class="form-control @error('paypal_subscription_id') is-invalid @enderror"
+                                               value="{{ old('paypal_subscription_id', $membership['paypal_subscription_id'] ?? '') }}"
+                                               placeholder="PayPal Subscription ID" required>
+                                        @error('paypal_subscription_id')
+                                        <label for="paypal_subscription_id" class="text-danger small mb-0 font-weight-normal">
+                                            {{ $message }}
+                                        </label>
                                         @enderror
                                     </div>
                                     <div class="form-group">

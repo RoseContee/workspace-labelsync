@@ -154,6 +154,10 @@
     <i class="bi bi-arrow-up-short"></i>
 </a>
 
+<div class="position-fixed bottom-0 end-0 p-3" style="z-index: 1000">
+    @include('partials.home-message')
+</div>
+
 <!-- Vendor JS Files -->
 <script src="{{ asset('assets/vendor/aos/aos.js') }}"></script>
 <script src="{{ asset('assets/vendor/bootstrap/js/bootstrap.bundle.min.js') }}"></script>

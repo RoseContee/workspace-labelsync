@@ -14,6 +14,7 @@ class Membership extends Model
         'name', 'price', 'origin_price', 'period', 'unit',
         'supported_features', 'unsupported_features', 'description',
         'featured', 'active',
+        'paypal_subscription_id',
     ];
 
     public function scopeActive($query) {

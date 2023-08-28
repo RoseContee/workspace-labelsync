@@ -110,6 +110,7 @@
                     { title: 'Price' },
                     { title: 'Period' },
                     { title: 'Features' },
+                    { title: 'Payment ID' },
                     { title: 'Description' },
                     { title: 'Status', width: 40 },
                     { title: 'Action', width: 66, searchable: false, orderable: false },
@@ -137,6 +138,7 @@
                                 $features .= '<li><i class="fa fa-times text-gray"></i> <span class="unsupported-features">'.$text.'</span></li>';
                             }
                         }
+                        $payments = '<p class="mb-0"><b>PayPal:</b> '.$membership['paypal_subscription_id'].'</p>';
                         $status = '<span class="badge badge-danger">Disable</span>';
                         if ($membership['active']) {
                             $status = '<span class="badge badge-success">Active</span>';
@@ -151,6 +153,7 @@
                         '{!! $price.$origin_price !!}',
                         '{!! $membership['period'].' '.$membership['unit'].'/user' !!}',
                         '<ul class="list-unstyled">{!! $features !!}</ul>',
+                        '{!! $payments !!}',
                         '{!! $membership['description'] !!}',
                         '{!! $status !!}',
                         `<a href="{{ route('memberships.edit', $membership['id']) }}" class="btn btn-sm btn-primary px-1 py-0 m-1">
