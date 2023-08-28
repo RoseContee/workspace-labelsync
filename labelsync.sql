@@ -16,6 +16,36 @@
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 --
+-- Table structure for table `contacts`
+--
+
+DROP TABLE IF EXISTS `contacts`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `contacts` (
+  `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
+  `name` varchar(255) NOT NULL,
+  `email` varchar(255) NOT NULL,
+  `subject` varchar(255) NOT NULL,
+  `message` text NOT NULL,
+  `read` tinyint(1) NOT NULL DEFAULT 0,
+  `replied` tinyint(1) NOT NULL DEFAULT 0,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `contacts`
+--
+
+LOCK TABLES `contacts` WRITE;
+/*!40000 ALTER TABLE `contacts` DISABLE KEYS */;
+/*!40000 ALTER TABLE `contacts` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
 -- Table structure for table `failed_jobs`
 --
 
@@ -55,10 +85,11 @@ CREATE TABLE `licenses` (
   `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
   `email` varchar(255) NOT NULL,
   `key` varchar(255) NOT NULL,
-  `end_at` datetime NOT NULL,
+  `expires_on` datetime NOT NULL,
   `active` tinyint(1) NOT NULL DEFAULT 1,
   `membership_id` int(11) DEFAULT NULL,
   `transaction_id` varchar(255) DEFAULT NULL,
+  `note` text DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`id`),
@@ -72,7 +103,7 @@ CREATE TABLE `licenses` (
 
 LOCK TABLES `licenses` WRITE;
 /*!40000 ALTER TABLE `licenses` DISABLE KEYS */;
-INSERT INTO `licenses` VALUES (1,'pierluigi.pisanti@aforadsudmilano.org','CF17-171B-4F4F-809B','2023-12-31 23:59:59',1,NULL,NULL,'2023-08-18 17:11:28','2023-08-18 17:11:28');
+INSERT INTO `licenses` VALUES (1,'pierluigi.pisanti@aforadsudmilano.org','CF17-171B-4F4F-809B','2023-12-31 23:59:59',1,NULL,NULL,NULL,'2023-08-28 09:41:10','2023-08-28 09:41:10');
 /*!40000 ALTER TABLE `licenses` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -86,17 +117,21 @@ DROP TABLE IF EXISTS `memberships`;
 CREATE TABLE `memberships` (
   `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
   `name` varchar(255) NOT NULL,
-  `description` text DEFAULT NULL,
   `price` decimal(8,2) NOT NULL,
-  `origin_price` decimal(8,2) NOT NULL,
+  `origin_price` decimal(8,2) DEFAULT NULL,
   `period` tinyint(4) NOT NULL,
-  `unit` enum('month','year','day') NOT NULL,
+  `unit` enum('year','month','day') NOT NULL,
+  `supported_features` text DEFAULT NULL,
+  `unsupported_features` text DEFAULT NULL,
+  `description` text DEFAULT NULL,
+  `featured` tinyint(1) NOT NULL DEFAULT 0,
   `active` tinyint(1) NOT NULL DEFAULT 1,
+  `paypal_subscription_id` varchar(255) NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
   `deleted_at` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -105,7 +140,7 @@ CREATE TABLE `memberships` (
 
 LOCK TABLES `memberships` WRITE;
 /*!40000 ALTER TABLE `memberships` DISABLE KEYS */;
-INSERT INTO `memberships` VALUES (1,'Annual Subscription',NULL,99.99,200.00,1,'year',1,'2023-08-18 17:11:28','2023-08-18 17:11:28',NULL);
+INSERT INTO `memberships` VALUES (1,'Non-Profit Plan',29.90,NULL,1,'year','Core Features\r\nSupport by email\r\nBasic Integration','Remote Support\r\nStandard Support',NULL,0,1,'P-2KV0272600548783LMTWM5YQ','2023-08-28 09:41:10','2023-08-28 16:14:29',NULL),(2,'Edu Plan',39.90,NULL,1,'year','Core Features\r\nSupport by email\r\nBasic Integration\r\nRemote Support\r\nStandard Support',NULL,NULL,1,1,'P-0VR91609S3861513TMTUHPOY','2023-08-28 09:41:10','2023-08-28 09:50:59',NULL),(3,'Business Plan',59.99,NULL,1,'year','Core Features\r\nSupport by phone\r\nPriority Support\r\nRemote Support\r\nOn.site support (optional)',NULL,NULL,0,1,'P-0VR91609S3861513TMTUHPOY','2023-08-28 09:41:10','2023-08-28 09:51:07',NULL);
 /*!40000 ALTER TABLE `memberships` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -121,7 +156,7 @@ CREATE TABLE `migrations` (
   `migration` varchar(255) NOT NULL,
   `batch` int(11) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -130,7 +165,7 @@ CREATE TABLE `migrations` (
 
 LOCK TABLES `migrations` WRITE;
 /*!40000 ALTER TABLE `migrations` DISABLE KEYS */;
-INSERT INTO `migrations` VALUES (1,'2014_10_12_000000_create_users_table',1),(2,'2014_10_12_100000_create_password_reset_tokens_table',1),(3,'2019_08_19_000000_create_failed_jobs_table',1),(4,'2019_12_14_000001_create_personal_access_tokens_table',1),(5,'2023_08_18_013616_create_sync_labels_table',1),(6,'2023_08_18_093706_create_memberships_table',1),(7,'2023_08_18_093722_create_settings_table',1),(8,'2023_08_18_093747_create_transactions_table',1),(9,'2023_08_18_093856_create_licenses_table',1);
+INSERT INTO `migrations` VALUES (1,'2014_10_12_000000_create_users_table',1),(2,'2014_10_12_100000_create_password_reset_tokens_table',1),(3,'2019_08_19_000000_create_failed_jobs_table',1),(4,'2019_12_14_000001_create_personal_access_tokens_table',1),(5,'2023_08_18_013616_create_sync_labels_table',1),(6,'2023_08_18_093706_create_memberships_table',1),(7,'2023_08_18_093722_create_settings_table',1),(8,'2023_08_18_093747_create_transactions_table',1),(9,'2023_08_18_093856_create_licenses_table',1),(10,'2023_08_25_003940_create_contacts_table',1);
 /*!40000 ALTER TABLE `migrations` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -205,7 +240,7 @@ CREATE TABLE `settings` (
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -214,7 +249,7 @@ CREATE TABLE `settings` (
 
 LOCK TABLES `settings` WRITE;
 /*!40000 ALTER TABLE `settings` DISABLE KEYS */;
-INSERT INTO `settings` VALUES (1,'site_name','Workspace Labelsync','2023-08-18 17:11:28','2023-08-18 17:11:28'),(2,'favicon','favicon.ico','2023-08-18 17:11:28','2023-08-18 17:11:28'),(3,'contact_email','pierluigi.pisanti@aforadsudmilano.org','2023-08-18 17:11:28','2023-08-18 17:11:28');
+INSERT INTO `settings` VALUES (1,'site_name','LabelSync','2023-08-28 09:41:10','2023-08-28 09:41:10'),(2,'favicon',NULL,'2023-08-28 09:41:10','2023-08-28 09:41:10'),(3,'logo',NULL,'2023-08-28 09:41:10','2023-08-28 09:41:10'),(4,'contact_email','info@labelsync.it','2023-08-28 09:41:10','2023-08-28 09:41:10'),(5,'contact_phone','+39 338 7825309','2023-08-28 09:41:10','2023-08-28 09:41:10'),(6,'contact_address','Largo Conservatorio Vecchio 1\n84121 - Salerno\nItaly','2023-08-28 09:41:10','2023-08-28 09:41:10'),(7,'map_link','https://maps.google.com/maps?width=100%25&amp;height=600&amp;hl=en&amp;q=Largo%20Conservatorio%20Vecchio%201+(My%20Business%20Name)&amp;t=&amp;z=14&amp;ie=UTF8&amp;iwloc=B&amp;output=embed','2023-08-28 09:41:10','2023-08-28 09:41:10'),(8,'facebook_link','https://facebook.com','2023-08-28 09:41:10','2023-08-28 09:41:10'),(9,'skype_link','https://web.skype.com','2023-08-28 09:41:10','2023-08-28 09:41:10'),(10,'linkedin_link','https://linkedin.com','2023-08-28 09:41:10','2023-08-28 09:41:10'),(11,'currency','€','2023-08-28 09:41:10','2023-08-28 09:41:10'),(12,'dark_mode','0','2023-08-28 09:41:10','2023-08-28 09:41:10');
 /*!40000 ALTER TABLE `settings` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -257,11 +292,11 @@ CREATE TABLE `transactions` (
   `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
   `transaction_id` varchar(255) NOT NULL,
   `email` varchar(255) NOT NULL,
-  `membership_id` int(11) DEFAULT NULL,
   `amount` decimal(8,2) NOT NULL,
   `period` int(11) NOT NULL,
   `unit` varchar(255) NOT NULL,
-  `started_at` datetime DEFAULT NULL,
+  `membership_id` int(11) DEFAULT NULL,
+  `start_at` datetime DEFAULT NULL,
   `end_at` datetime DEFAULT NULL,
   `type` enum('start','recurring') NOT NULL,
   `status` enum('pending','completed','canceled','expired') NOT NULL,
@@ -306,7 +341,7 @@ CREATE TABLE `users` (
 
 LOCK TABLES `users` WRITE;
 /*!40000 ALTER TABLE `users` DISABLE KEYS */;
-INSERT INTO `users` VALUES (1,'admin@admin.com',NULL,'$2y$10$4giI8NOmPIAAunKPsyxF1eWpBnnihXuN2yzPP9NRhU51GbFhdM0g2',NULL,'2023-08-18 17:11:28','2023-08-18 17:11:28');
+INSERT INTO `users` VALUES (1,'admin@admin.com',NULL,'$2y$10$o.KQFdqWm1UFikllcm7U6eDx/3Bdz6CRjc2VgipC/iyLhSktaHP5e',NULL,'2023-08-28 09:41:10','2023-08-28 09:41:10');
 /*!40000 ALTER TABLE `users` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -319,4 +354,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2023-08-21 17:11:40
+-- Dump completed on 2023-08-28 19:09:32
