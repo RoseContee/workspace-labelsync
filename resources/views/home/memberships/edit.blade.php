@@ -2,7 +2,7 @@
 
 @php
     $isAdd = empty($membership);
-    $route = $isAdd ? route('memberships.store') : route('memberships.update', $membership['id']);
+    $route = $isAdd ? route('admin.memberships.store') : route('admin.memberships.update', $membership['id']);
 @endphp
 @section('title', $isAdd ? 'Add Membership' : 'Edit Membership')
 
@@ -18,7 +18,7 @@
                     </div><!-- /.col -->
                     <div class="col-sm-6">
                         <ol class="breadcrumb float-sm-right">
-                            <li class="breadcrumb-item"><a href="{{ route('memberships.index') }}">Memberships</a></li>
+                            <li class="breadcrumb-item"><a href="{{ route('admin.memberships.index') }}">Memberships</a></li>
                             <li class="breadcrumb-item active">{{ $isAdd ? 'Add' : 'Edit' }}</li>
                         </ol>
                     </div><!-- /.col -->
@@ -191,7 +191,7 @@
                                 <!-- /.card-body -->
                                 <div class="card-footer">
                                     <button type="submit" class="btn btn-primary">{{ $isAdd ? 'Create' : 'Update' }}</button>
-                                    <a href="{{ route('memberships.index') }}" class="btn btn-danger ml-2">Cancel</a>
+                                    <a href="{{ route('admin.memberships.index') }}" class="btn btn-danger ml-2">Cancel</a>
                                 </div>
                             </div>
                             <!-- /.card -->

@@ -7,7 +7,7 @@
 
     @include('partials.messages')
 
-    <form action="{{ route('login') }}" method="post">
+    <form action="{{ route('admin.login') }}" method="post">
         @csrf
         <div class="mb-3">
             <div class="input-group">
@@ -54,7 +54,7 @@
             </div>
             {{--<div class="col-sm-6">
                 <p class="text-right mb-2">
-                    <a href="{{ route('password.forgot') }}">forgot password?</a>
+                    <a href="{{ route('admin.password.forgot') }}">forgot password?</a>
                 </p>
             </div>--}}
         </div>

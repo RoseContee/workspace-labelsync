@@ -30,7 +30,7 @@
 
                 <div class="row">
                     <div class="col-lg-8">
-                        <form action="{{ route('settings.store') }}" method="POST" enctype="multipart/form-data">
+                        <form action="{{ route('admin.settings.store') }}" method="POST" enctype="multipart/form-data">
                             @csrf
                             <div class="card">
                                 <div class="card-body">

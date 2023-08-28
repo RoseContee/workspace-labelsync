@@ -7,7 +7,7 @@
 
     @include('partials.messages')
 
-    <form action="{{ route('password.reset') }}" method="post">
+    <form action="{{ route('admin.password.reset') }}" method="post">
         @csrf
         <input type="hidden" name="token" value="{{ $token }}" />
         <div class="mb-3">
@@ -62,7 +62,7 @@
             <button type="submit" class="btn btn-primary btn-block">Reset password</button>
         </p>
         <p class="text-center mt-2 mb-0">
-            <a href="{{ route('login') }}">Back to Login</a>
+            <a href="{{ route('admin.login') }}">Back to Login</a>
         </p>
     </form>
 @endsection

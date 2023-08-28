@@ -32,7 +32,7 @@
                 <div class="card">
                     <div class="card-header">
                         <h3 class="card-title">
-                            <a href="{{ route('memberships.create') }}" class="btn btn-primary">
+                            <a href="{{ route('admin.memberships.create') }}" class="btn btn-primary">
                                 <i class="fa fa-plus"></i> Add Membership
                             </a>
                         </h3>
@@ -91,7 +91,7 @@
         });
 
         const onDisable = (id) => {
-            const action = '{{ route('memberships.index') }}/' + id;
+            const action = '{{ route('admin.memberships.index') }}/' + id;
             disableModal.find('form').attr('action', action);
             disableModal.modal('show');
         }
@@ -156,7 +156,7 @@
                         '{!! $payments !!}',
                         '{!! $membership['description'] !!}',
                         '{!! $status !!}',
-                        `<a href="{{ route('memberships.edit', $membership['id']) }}" class="btn btn-sm btn-primary px-1 py-0 m-1">
+                        `<a href="{{ route('admin.memberships.edit', $membership['id']) }}" class="btn btn-sm btn-primary px-1 py-0 m-1">
                             <i class="fa fa-edit"></i>
                         </a>`
                         @if ($membership['active'])

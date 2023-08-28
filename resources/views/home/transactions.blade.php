@@ -31,16 +31,16 @@
 
                 <div class="card">
                     <div class="card-header">
-                        <a href="{{ route('transactions.index') }}" class="btn btn-sm btn-primary m-1">
+                        <a href="{{ route('admin.transactions.index') }}" class="btn btn-sm btn-primary m-1">
                             <i class="fa fa-filter"></i> All
                         </a>
-                        <a href="{{ route('transactions.index', ['status' => 'completed']) }}" class="btn btn-sm btn-success m-1">
+                        <a href="{{ route('admin.transactions.index', ['status' => 'completed']) }}" class="btn btn-sm btn-success m-1">
                             <i class="fa fa-filter"></i> Completed
                         </a>
-                        <a href="{{ route('transactions.index', ['status' => 'canceled']) }}" class="btn btn-sm btn-danger m-1">
+                        <a href="{{ route('admin.transactions.index', ['status' => 'canceled']) }}" class="btn btn-sm btn-danger m-1">
                             <i class="fa fa-filter"></i> Canceled
                         </a>
-                        <a href="{{ route('transactions.index', ['status' => 'pending']) }}" class="btn btn-sm btn-warning m-1">
+                        <a href="{{ route('admin.transactions.index', ['status' => 'pending']) }}" class="btn btn-sm btn-warning m-1">
                             <i class="fa fa-filter"></i> Pending
                         </a>
                     </div>

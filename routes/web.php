@@ -23,51 +23,64 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', [HomeController::class, 'index'])->name('home');
-Route::post('contact', [HomeController::class, 'contact'])->name('contact');
-Route::get('terms', [HomeController::class, 'terms'])->name('terms');
-Route::get('privacy', [HomeController::class, 'privacy'])->name('privacy');
-
-Route::post('subscribe', [SubscribeController::class, 'subscribe'])->name('subscribe');
-Route::get('subscribe/cancel', [SubscribeController::class, 'cancel'])->name('subscribe.cancel');
-
-Route::get('subscribe/paypal/success', [PaypalController::class, 'success'])->name('subscribe.paypal.success');
-Route::post('subscribe/paypal/webhook', [PaypalController::class, 'webhook'])->name('subscribe.paypal.webhook');
-
-
 Route::group([
-    'middleware' => ['guest'],
+    'domain' => 'labelsync.it',
 ], function() {
-    Route::get('login', [AuthController::class, 'login'])->name('login');
-    Route::post('login', [AuthController::class, 'postLogin']);
-    //Route::get('forgot-password', [AuthController::class, 'forgot'])->name('password.forgot');
-    //Route::post('forgot-password', [AuthController::class, 'postForgot']);
-    //Route::get('reset-password/{token}', [AuthController::class, 'reset'])->name('password.reset');
-    //Route::post('reset-password', [AuthController::class, 'postReset'])->name('password.update');
+    Route::get('/', [HomeController::class, 'index'])->name('home');
+    Route::post('contact', [HomeController::class, 'contact'])->name('contact');
+    Route::get('terms', [HomeController::class, 'terms'])->name('terms');
+    Route::get('privacy', [HomeController::class, 'privacy'])->name('privacy');
+
+    Route::post('subscribe', [SubscribeController::class, 'subscribe'])->name('subscribe');
+    Route::get('subscribe/cancel', [SubscribeController::class, 'cancel'])->name('subscribe.cancel');
+
+    Route::get('subscribe/paypal/success', [PaypalController::class, 'success'])->name('subscribe.paypal.success');
+    Route::post('subscribe/paypal/webhook', [PaypalController::class, 'webhook'])->name('subscribe.paypal.webhook');
 });
 
+
 Route::group([
-    'middleware' => ['auth'],
+    'domain' => 'admin.labelsync.it',
+    'as' => 'admin.'
 ], function() {
-    Route::get('dashboard', [DashboardController::class, 'index'])->name('dashboard');
+    Route::get('/', function() {
+        return redirect()->route('admin.dashboard');
+    });
 
-    Route::resource('licenses', LicenseController::class);
+    Route::group([
+        'middleware' => ['guest'],
+    ], function() {
+        Route::get('login', [AuthController::class, 'login'])->name('login');
+        Route::post('login', [AuthController::class, 'postLogin']);
+        //Route::get('forgot-password', [AuthController::class, 'forgot'])->name('password.forgot');
+        //Route::post('forgot-password', [AuthController::class, 'postForgot']);
+        //Route::get('reset-password/{token}', [AuthController::class, 'reset'])->name('password.reset');
+        //Route::post('reset-password', [AuthController::class, 'postReset'])->name('password.update');
+    });
 
-    Route::resource('memberships', MembershipController::class);
+    Route::group([
+        'middleware' => ['auth'],
+    ], function() {
+        Route::get('dashboard', [DashboardController::class, 'index'])->name('dashboard');
 
-    Route::resource('transactions', TransactionController::class)->only(['index']);
+        Route::resource('licenses', LicenseController::class);
 
-    Route::resource('contacts', ContactController::class)->only(['index', 'edit', 'update']);
+        Route::resource('memberships', MembershipController::class);
 
-    Route::resource('settings', SettingsController::class)->only(['index', 'store']);
-    Route::post('update-theme', [SettingsController::class, 'updateTheme'])->name('update-theme');
+        Route::resource('transactions', TransactionController::class)->only(['index']);
 
-    Route::get('profile', [SettingsController::class, 'profile'])->name('profile');
-    Route::post('update-email', [SettingsController::class, 'updateEmail'])->name('update-email');
-    Route::post('update-password', [SettingsController::class, 'updatePassword'])->name('update-password');
+        Route::resource('contacts', ContactController::class)->only(['index', 'edit', 'update']);
 
-    Route::get('logout', function() {
-        auth()->logout();
-        return redirect()->route('login');
-    })->name('logout');
+        Route::resource('settings', SettingsController::class)->only(['index', 'store']);
+        Route::post('update-theme', [SettingsController::class, 'updateTheme'])->name('update-theme');
+
+        Route::get('profile', [SettingsController::class, 'profile'])->name('profile');
+        Route::post('update-email', [SettingsController::class, 'updateEmail'])->name('update-email');
+        Route::post('update-password', [SettingsController::class, 'updatePassword'])->name('update-password');
+
+        Route::get('logout', function() {
+            auth()->logout();
+            return redirect()->route('admin.login');
+        })->name('logout');
+    });
 });

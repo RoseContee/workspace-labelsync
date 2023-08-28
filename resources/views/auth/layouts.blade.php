@@ -21,7 +21,7 @@
     <!-- /.login-logo -->
     <div class="card card-outline card-primary">
         <div class="card-header text-center">
-            <a href="{{ route('login') }}" class="h3">
+            <a href="{{ route('admin.login') }}" class="h3">
                 <b>{{ getSiteName($settings['site_name'] ?? null) }}</b>
             </a>
         </div>

@@ -32,7 +32,7 @@
                 <div class="card">
                     <div class="card-header">
                         <h3 class="card-title">
-                            <a href="{{ route('licenses.create') }}" class="btn btn-primary">
+                            <a href="{{ route('admin.licenses.create') }}" class="btn btn-primary">
                                 <i class="fa fa-plus"></i> Add License
                             </a>
                         </h3>
@@ -92,7 +92,7 @@
         });
 
         const onDelete = (id, email) => {
-            const action = '{{ route('licenses.index') }}/' + id;
+            const action = '{{ route('admin.licenses.index') }}/' + id;
             deleteModal.find('form').attr('action', action);
             deleteModal.find('#email').text(email);
             deleteModal.modal('show');
@@ -134,7 +134,7 @@
                         '{!! $license['membership'] !!}',
                         '{!! $license['transaction_id'] !!}',
                         '{!! $license['note'] !!}',
-                        `<a href="{{ route('licenses.edit', $license['id']) }}" class="btn btn-sm btn-primary px-1 py-0 m-1">
+                        `<a href="{{ route('admin.licenses.edit', $license['id']) }}" class="btn btn-sm btn-primary px-1 py-0 m-1">
                             <i class="fa fa-edit"></i>
                         </a>`
                         @if (!$license['transaction'])

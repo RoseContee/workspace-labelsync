@@ -7,7 +7,7 @@
 
     @include('partials.messages')
 
-    <form action="{{ route('password.forgot') }}" method="post">
+    <form action="{{ route('admin.password.forgot') }}" method="post">
         @csrf
         <div class="mb-3">
             <div class="input-group">
@@ -31,7 +31,7 @@
             <button type="submit" class="btn btn-primary btn-block">Request new password</button>
         </p>
         <p class="text-center mt-2 mb-0">
-            <a href="{{ route('login') }}">Back to Login</a>
+            <a href="{{ route('admin.login') }}">Back to Login</a>
         </p>
     </form>
 @endsection

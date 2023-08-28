@@ -14,7 +14,7 @@
                     </div><!-- /.col -->
                     <div class="col-sm-6">
                         <ol class="breadcrumb float-sm-right">
-                            <li class="breadcrumb-item"><a href="{{ route('licenses.index') }}">Licenses</a></li>
+                            <li class="breadcrumb-item"><a href="{{ route('admin.licenses.index') }}">Licenses</a></li>
                             <li class="breadcrumb-item active">Edit</li>
                         </ol>
                     </div><!-- /.col -->
@@ -30,7 +30,7 @@
 
                 <div class="row">
                     <div class="col-lg-8">
-                        <form action="{{ route('licenses.update', $license['id']) }}" method="POST">
+                        <form action="{{ route('admin.licenses.update', $license['id']) }}" method="POST">
                             @csrf
                             @method('PUT')
                             <input type="hidden" name="timezoneOffset" value="">
@@ -99,7 +99,7 @@
                                 <!-- /.card-body -->
                                 <div class="card-footer">
                                     <button type="submit" class="btn btn-primary">Update</button>
-                                    <a href="{{ route('licenses.index') }}" class="btn btn-danger ml-2">Cancel</a>
+                                    <a href="{{ route('admin.licenses.index') }}" class="btn btn-danger ml-2">Cancel</a>
                                 </div>
                             </div>
                             <!-- /.card -->

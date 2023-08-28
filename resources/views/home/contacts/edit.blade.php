@@ -14,7 +14,7 @@
                     </div><!-- /.col -->
                     <div class="col-sm-6">
                         <ol class="breadcrumb float-sm-right">
-                            <li class="breadcrumb-item"><a href="{{ route('contacts.index') }}">Contacts</a></li>
+                            <li class="breadcrumb-item"><a href="{{ route('admin.contacts.index') }}">Contacts</a></li>
                             <li class="breadcrumb-item active">Update</li>
                         </ol>
                     </div><!-- /.col -->
@@ -30,7 +30,7 @@
 
                 <div class="row">
                     <div class="col-lg-8">
-                        <form action="{{ route('contacts.update', $contact['id']) }}" method="POST">
+                        <form action="{{ route('admin.contacts.update', $contact['id']) }}" method="POST">
                             @csrf
                             @method('PUT')
                             <div class="card">
@@ -72,7 +72,7 @@
                                 <!-- /.card-body -->
                                 <div class="card-footer">
                                     <button type="submit" class="btn btn-primary">Update</button>
-                                    <a href="{{ route('contacts.index') }}" class="btn btn-danger ml-2">Cancel</a>
+                                    <a href="{{ route('admin.contacts.index') }}" class="btn btn-danger ml-2">Cancel</a>
                                 </div>
                             </div>
                             <!-- /.card -->

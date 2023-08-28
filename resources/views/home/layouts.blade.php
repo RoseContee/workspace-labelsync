@@ -55,7 +55,7 @@
     <!-- Main Sidebar Container -->
     <aside class="main-sidebar elevation-4 {{ $dark_mode ? 'sidebar-dark-primary' : 'sidebar-light-primary' }}">
         <!-- Logo -->
-        <a href="{{ route('dashboard') }}" class="brand-link">
+        <a href="{{ route('admin.dashboard') }}" class="brand-link">
             <img src="{{ asset('assets/admin/img/admin-logo.png') }}" alt="Logo" class="brand-image img-circle elevation-3">
             <span class="brand-text font-weight">Admin</span>
         </a>
@@ -66,31 +66,31 @@
             <nav>
                 <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
                     <li class="nav-item">
-                        <a href="{{ route('dashboard') }}" class="nav-link @if($menu == 'Dashboard') active @endif">
+                        <a href="{{ route('admin.dashboard') }}" class="nav-link @if($menu == 'Dashboard') active @endif">
                             <i class="nav-icon fas fa-tachometer-alt"></i>
                             <p>Dashboard</p>
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a href="{{ route('licenses.index') }}" class="nav-link @if($menu == 'Licenses') active @endif">
+                        <a href="{{ route('admin.licenses.index') }}" class="nav-link @if($menu == 'Licenses') active @endif">
                             <i class="nav-icon fas fa-key"></i>
                             <p>Licenses</p>
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a href="{{ route('memberships.index') }}" class="nav-link @if($menu == 'Memberships') active @endif">
+                        <a href="{{ route('admin.memberships.index') }}" class="nav-link @if($menu == 'Memberships') active @endif">
                             <i class="nav-icon fas fa-shopping-cart"></i>
                             <p>Memberships</p>
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a href="{{ route('transactions.index') }}" class="nav-link @if($menu == 'Transactions') active @endif">
+                        <a href="{{ route('admin.transactions.index') }}" class="nav-link @if($menu == 'Transactions') active @endif">
                             <i class="nav-icon fas fa-money-bill-wave"></i>
                             <p>Transactions</p>
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a href="{{ route('contacts.index') }}" class="nav-link @if($menu == 'Contacts') active @endif">
+                        <a href="{{ route('admin.contacts.index') }}" class="nav-link @if($menu == 'Contacts') active @endif">
                             <i class="nav-icon fas fa-comments"></i>
                             <p>
                                 Contacts
@@ -99,19 +99,19 @@
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a href="{{ route('settings.index') }}" class="nav-link @if($menu == 'Settings') active @endif">
+                        <a href="{{ route('admin.settings.index') }}" class="nav-link @if($menu == 'Settings') active @endif">
                             <i class="nav-icon fas fa-cogs"></i>
                             <p>Settings</p>
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a href="{{ route('profile') }}" class="nav-link @if($menu == 'Profile') active @endif">
+                        <a href="{{ route('admin.profile') }}" class="nav-link @if($menu == 'Profile') active @endif">
                             <i class="nav-icon fas fa-user"></i>
                             <p>Profile</p>
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a href="{{ route('logout') }}" class="nav-link">
+                        <a href="{{ route('admin.logout') }}" class="nav-link">
                             <i class="nav-icon fas fa-sign-out-alt"></i>
                             <p>Logout</p>
                         </a>
@@ -129,7 +129,7 @@
     <footer class="main-footer">
         <strong>
             Copyright &copy; {{ date('Y') }}
-            <a href="{{ route('dashboard') }}">{{ getSiteName($settings['site_name'] ?? null) }}</a>.
+            <a href="{{ route('admin.dashboard') }}">{{ getSiteName($settings['site_name'] ?? null) }}</a>.
         </strong>
         All rights reserved.
     </footer>
@@ -181,7 +181,7 @@
                 mainSidebar.addClass('sidebar-light-primary').removeClass('sidebar-dark-primary');
             }
             $.ajax({
-                url: '{{ route('update-theme') }}',
+                url: '{{ route('admin.update-theme') }}',
                 method: 'POST',
                 data: {
                     darkMode: darkMode,
