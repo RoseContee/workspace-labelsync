@@ -24,7 +24,7 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::group([
-    'domain' => 'labelsync.it',
+    'domain' => 'www.labelsync.it',
 ], function() {
     Route::get('/', [HomeController::class, 'index'])->name('home');
     Route::post('contact', [HomeController::class, 'contact'])->name('contact');
