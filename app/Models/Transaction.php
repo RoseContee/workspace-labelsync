@@ -15,6 +15,10 @@ class Transaction extends Model
         'start_at', 'end_at', 'status',
     ];
 
+    public function scopeCompleted($query) {
+        $query->where('status', 'completed');
+    }
+
     public function membership() {
         return $this->belongsTo(Membership::class);
     }
