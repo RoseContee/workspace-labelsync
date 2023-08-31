@@ -55,23 +55,16 @@ class PayPalController extends Controller
 
     public function webhook(Request $request) {
         $paypal = new PayPalSubscription();
-        switch ($request['event_type']) {
-            case 'BILLING.SUBSCRIPTION.CANCELLED':
-                if ($subscriptionId = $request['resource']['id'] ?? null) {
-                    $subscription = $paypal->getSubscription($subscriptionId);
+        if ($request['event_type'] === 'PAYMENT.SALE.COMPLETED') {
+            if ($subscriptionId = $request['resource']['billing_agreement_id'] ?? null) {
+                $subscription = $paypal->getSubscription($subscriptionId);
+                if ($planId = $subscription['plan_id'] ?? null) {
+                    $plan = $paypal->getPlan($planId);
                 }
-                break;
-            case 'PAYMENT.SALE.COMPLETED':
-                if ($subscriptionId = $request['resource']['billing_agreement_id'] ?? null) {
-                    $subscription = $paypal->getSubscription($subscriptionId);
-                    if ($planId = $subscription['plan_id'] ?? null) {
-                        $plan = $paypal->getPlan($planId);
-                    }
-                }
-                if ($paymentId = $request['resource']['id'] ?? null) {
-                    $payment = $paypal->getPayment($paymentId);
-                }
-                break;
+            }
+            if ($paymentId = $request['resource']['id'] ?? null) {
+                $payment = $paypal->getPayment($paymentId);
+            }
         }
         if (!empty($subscription) && PayPalHelper::isActive($subscription)) {
             $expires_on = PayPalHelper::getExpiresOn($subscription);
