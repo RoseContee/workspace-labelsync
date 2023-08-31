@@ -65,7 +65,7 @@ CREATE TABLE `admins` (
 
 LOCK TABLES `admins` WRITE;
 /*!40000 ALTER TABLE `admins` DISABLE KEYS */;
-INSERT INTO `admins` VALUES (1,'admin@admin.com',NULL,'$2y$10$JWgQZPWv7WH7GiitqYc5ReE03nE/y2bkhprJPydbG6G30Qw09GPeC',NULL,'2023-08-31 00:05:37','2023-08-31 00:05:37');
+INSERT INTO `admins` VALUES (1,'admin@admin.com',NULL,'$2y$10$9SlyPc3G.miWwzpouNem0OH0aES4OSNjT9RFx.GkfMhxsI4HRC5Sa',NULL,'2023-08-31 00:32:45','2023-08-31 00:32:45');
 /*!40000 ALTER TABLE `admins` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -172,7 +172,7 @@ CREATE TABLE `memberships` (
   `price` decimal(8,2) NOT NULL,
   `origin_price` decimal(8,2) DEFAULT NULL,
   `period` tinyint(4) NOT NULL,
-  `unit` enum('year','month','day') NOT NULL,
+  `unit` enum('year','month','week','day') NOT NULL,
   `supported_features` text DEFAULT NULL,
   `unsupported_features` text DEFAULT NULL,
   `description` text DEFAULT NULL,
@@ -192,7 +192,7 @@ CREATE TABLE `memberships` (
 
 LOCK TABLES `memberships` WRITE;
 /*!40000 ALTER TABLE `memberships` DISABLE KEYS */;
-INSERT INTO `memberships` VALUES (1,'Non-Profit Plan',29.90,NULL,1,'year','Core Features\nSupport by email\nBasic Integration','Remote Support\nStandard Support',NULL,0,1,'','2023-08-31 00:05:38','2023-08-31 00:05:38',NULL),(2,'Edu Plan',39.90,NULL,1,'year','Core Features\nSupport by email\nBasic Integration\nRemote Support\nStandard Support',NULL,NULL,1,1,'','2023-08-31 00:05:38','2023-08-31 00:05:38',NULL),(3,'Business Plan',59.99,NULL,1,'year','Core Features\nSupport by phone\nPriority Support\nRemote Support\nOn.site support (optional)',NULL,NULL,0,1,'','2023-08-31 00:05:38','2023-08-31 00:05:38',NULL);
+INSERT INTO `memberships` VALUES (1,'Non-Profit Plan',29.90,NULL,1,'year','Core Features\nSupport by email\nBasic Integration','Remote Support\nStandard Support',NULL,0,1,'','2023-08-31 00:32:45','2023-08-31 00:32:45',NULL),(2,'Edu Plan',39.90,NULL,1,'year','Core Features\nSupport by email\nBasic Integration\nRemote Support\nStandard Support',NULL,NULL,1,1,'','2023-08-31 00:32:45','2023-08-31 00:32:45',NULL),(3,'Business Plan',59.99,NULL,1,'year','Core Features\nSupport by phone\nPriority Support\nRemote Support\nOn.site support (optional)',NULL,NULL,0,1,'','2023-08-31 00:32:45','2023-08-31 00:32:45',NULL);
 /*!40000 ALTER TABLE `memberships` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -301,7 +301,7 @@ CREATE TABLE `settings` (
 
 LOCK TABLES `settings` WRITE;
 /*!40000 ALTER TABLE `settings` DISABLE KEYS */;
-INSERT INTO `settings` VALUES (1,'site_name','LabelSync','2023-08-31 00:05:38','2023-08-31 00:05:38'),(2,'favicon',NULL,'2023-08-31 00:05:38','2023-08-31 00:05:38'),(3,'logo',NULL,'2023-08-31 00:05:38','2023-08-31 00:05:38'),(4,'contact_email','info@labelsync.it','2023-08-31 00:05:38','2023-08-31 00:05:38'),(5,'contact_phone','+39 338 7825309','2023-08-31 00:05:38','2023-08-31 00:05:38'),(6,'contact_address','Largo Conservatorio Vecchio 1\n84121 - Salerno\nItaly','2023-08-31 00:05:38','2023-08-31 00:05:38'),(7,'map_link','https://maps.google.com/maps?width=100%25&amp;height=600&amp;hl=en&amp;q=Largo%20Conservatorio%20Vecchio%201+(My%20Business%20Name)&amp;t=&amp;z=14&amp;ie=UTF8&amp;iwloc=B&amp;output=embed','2023-08-31 00:05:38','2023-08-31 00:05:38'),(8,'facebook_link','https://facebook.com','2023-08-31 00:05:38','2023-08-31 00:05:38'),(9,'skype_link','https://web.skype.com','2023-08-31 00:05:38','2023-08-31 00:05:38'),(10,'linkedin_link','https://linkedin.com','2023-08-31 00:05:38','2023-08-31 00:05:38'),(11,'currency','€','2023-08-31 00:05:38','2023-08-31 00:05:38'),(12,'dark_mode','0','2023-08-31 00:05:38','2023-08-31 00:05:38');
+INSERT INTO `settings` VALUES (1,'site_name','LabelSync','2023-08-31 00:32:45','2023-08-31 00:32:45'),(2,'favicon',NULL,'2023-08-31 00:32:45','2023-08-31 00:32:45'),(3,'logo',NULL,'2023-08-31 00:32:45','2023-08-31 00:32:45'),(4,'contact_email','info@labelsync.it','2023-08-31 00:32:45','2023-08-31 00:32:45'),(5,'contact_phone','+39 338 7825309','2023-08-31 00:32:45','2023-08-31 00:32:45'),(6,'contact_address','Largo Conservatorio Vecchio 1\n84121 - Salerno\nItaly','2023-08-31 00:32:45','2023-08-31 00:32:45'),(7,'map_link','https://maps.google.com/maps?width=100%25&amp;height=600&amp;hl=en&amp;q=Largo%20Conservatorio%20Vecchio%201+(My%20Business%20Name)&amp;t=&amp;z=14&amp;ie=UTF8&amp;iwloc=B&amp;output=embed','2023-08-31 00:32:45','2023-08-31 00:32:45'),(8,'facebook_link','https://facebook.com','2023-08-31 00:32:45','2023-08-31 00:32:45'),(9,'skype_link','https://web.skype.com','2023-08-31 00:32:45','2023-08-31 00:32:45'),(10,'linkedin_link','https://linkedin.com','2023-08-31 00:32:45','2023-08-31 00:32:45'),(11,'currency','€','2023-08-31 00:32:45','2023-08-31 00:32:45'),(12,'dark_mode','0','2023-08-31 00:32:45','2023-08-31 00:32:45');
 /*!40000 ALTER TABLE `settings` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -407,4 +407,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2023-08-31  2:10:41
+-- Dump completed on 2023-08-31  2:37:27
