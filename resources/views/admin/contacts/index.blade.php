@@ -68,7 +68,7 @@
                         '{!! $contact['name'] !!}',
                         '{!! $contact['email'] !!}',
                         '{!! $contact['subject'] !!}',
-                        '{!! Str::limit($contact['message'], 200) !!}',
+                        '{!! Str::limit(str_replace("'", "\'", $contact['message']), 200) !!}',
                         '{!! !$contact['read'] ? '<span class="badge badge-warning">Unread</span>' : '' !!}',
                         '{!! !$contact['replied'] ? '<span class="badge badge-info">Not Replied</span>' : '' !!}',
                         `<a href="{{ route('admin.contacts.edit', $contact['id']) }}" class="btn btn-sm btn-primary px-1 py-0 m-1">
