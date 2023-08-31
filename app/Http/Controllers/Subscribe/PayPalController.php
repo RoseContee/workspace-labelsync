@@ -54,6 +54,8 @@ class PayPalController extends Controller
     }
 
     public function webhook(Request $request) {
+        logger('webhook');
+        logger($request);
         $paypal = new PayPalSubscription();
         switch ($request['event_type']) {
             case 'BILLING.SUBSCRIPTION.CANCELLED':
