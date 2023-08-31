@@ -152,7 +152,10 @@
                     [
                         '{!! ++$index !!}',
                         '{!! $membership['name'] !!}',
-                        '{!! $price.$origin_price.' per '.$membership['period'].' '.$membership['unit'].'/user' !!}',
+                        '{!!
+                            $price.$origin_price.' <span class="small">per</span> '
+                            .$membership['period'].' '.$membership['unit'].'/user'
+                        !!}',
                         '<ul class="list-unstyled">{!! $features !!}</ul>',
                         '{!! $plans !!}',
                         '{!! $membership['description'] !!}',
