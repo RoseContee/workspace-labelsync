@@ -2,10 +2,12 @@
 
 namespace App\Http\Controllers\Extension;
 
+use App\Helpers\PayPal as PayPalHelper;
 use App\Http\Controllers\Controller;
 use App\Models\License;
 use App\Models\Setting;
 use App\Models\SyncLabel;
+use App\Subscriptions\PayPalSubscription;
 use Illuminate\Http\Request;
 
 class V1Controller extends Controller
@@ -22,7 +24,19 @@ class V1Controller extends Controller
                 'error' => null,
             ]);
         }
-        if (($expired = now() >= $license['expires_on']) || !$license['active']) {
+        if ($expired = now() >= $license['expires_on']) {
+            if ($license['payment_method'] === 'paypal') {
+                $paypal = new PayPalSubscription();
+                $subscription = $paypal->getSubscription($license['subscription_id']);
+                if (PayPalHelper::isActive($subscription)) {
+                    $expires_on = date('Y-m-d H:i:s', strtotime(PayPalHelper::getExpiresOn($subscription)));
+                    $license['expires_on'] = $expires_on;
+                    $license->save();
+                    $expired = false;
+                }
+            }
+        }
+        if ($expired || !$license['active']) {
             SyncLabel::where('email', $email)->delete();
             if ($expired) {
                 $error = 'Your license key has expired.';
