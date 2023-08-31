@@ -96,10 +96,10 @@
                         @if ($end_at) ' - ' + dateFormat({!! strtotime($end_at) * 1000 !!}) @else '' @endif,
                         '{!!
                             $status === 'completed'
-                            ? '<span class="btn btn-success">Completed</span>'
+                            ? '<span class="badge badge-success">Completed</span>'
                             : (in_array($status, ['declined', 'cancelled'])
-                                ? '<span class="btn btn-danger">'.ucfirst($status).'</span>'
-                                : '<span class="btn btn-warning">'.ucfirst($status).'</span>'
+                                ? '<span class="badge badge-danger">'.ucfirst($status).'</span>'
+                                : '<span class="badge badge-warning">'.ucfirst($status).'</span>'
                             )
                         !!}',
                     ],
