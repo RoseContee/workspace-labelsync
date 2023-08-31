@@ -33,7 +33,7 @@ class MembershipController extends Controller
             'price' => ['required', 'numeric'],
             'origin_price' => ['nullable', 'numeric'],
             'period' => ['required', 'numeric'],
-            'unit' => ['required', 'in:year,month,day'],
+            'unit' => ['required', 'in:year,month,week,day'],
             'supported_features' => ['required'],
             'paypal_plan_id' => ['required', 'unique:memberships'],
         ]);
@@ -80,7 +80,7 @@ class MembershipController extends Controller
             'price' => ['required', 'numeric'],
             'origin_price' => ['nullable', 'numeric'],
             'period' => ['required', 'numeric'],
-            'unit' => ['required', 'in:year,month,day'],
+            'unit' => ['required', 'in:year,month,week,day'],
             'supported_features' => ['required'],
             'paypal_plan_id' => ['required', Rule::unique('memberships')->ignore($membership['id'])],
         ]);

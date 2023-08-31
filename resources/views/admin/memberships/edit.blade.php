@@ -108,6 +108,9 @@
                                                 <option value="month" @if ($old_unit === 'month') selected @endif>
                                                     Month
                                                 </option>
+                                                <option value="week" @if ($old_unit === 'week') selected @endif>
+                                                    Week
+                                                </option>
                                                 <option value="day" @if ($old_unit === 'day') selected @endif>
                                                     Day
                                                 </option>

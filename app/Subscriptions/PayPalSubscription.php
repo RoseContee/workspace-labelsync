@@ -20,7 +20,7 @@ class PayPalSubscription implements Subscription
         $site = config('app.name');
         try {
             $subscription = $this->provider->createSubscription([
-                'plan_id' => $plan['paypal_subscription_id'],
+                'plan_id' => $plan['paypal_plan_id'],
                 'quantity' => '1',
                 'application_context' => [
                     'brand_name' => $plan['name'].' for '.$site,

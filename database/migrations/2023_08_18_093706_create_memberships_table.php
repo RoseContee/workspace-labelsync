@@ -17,7 +17,7 @@ return new class extends Migration
             $table->decimal('price');
             $table->decimal('origin_price')->nullable();
             $table->tinyInteger('period');
-            $table->enum('unit', ['year', 'month', 'day']);
+            $table->enum('unit', ['year', 'month', 'week', 'day']);
             $table->text('supported_features')->nullable();
             $table->text('unsupported_features')->nullable();
             $table->text('description')->nullable();
