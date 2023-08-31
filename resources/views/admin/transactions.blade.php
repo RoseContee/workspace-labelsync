@@ -73,7 +73,6 @@
                     { title: 'Plan' },
                     { title: 'Email' },
                     { title: 'Amount' },
-                    { title: 'Period' },
                     { title: 'Date' },
                     { title: 'Status', width: 40 },
                 ],
@@ -90,8 +89,10 @@
                         '{!! $transaction['payment_method'] !!}',
                         '{!! $transaction['membership']['name'] ?? '' !!}',
                         '{!! $transaction['email'] !!}',
-                        '{!! $transaction['amount'].' '.$transaction['currency'] !!}',
-                        '{!! $transaction['period'].' '.$transaction['unit'] !!}',
+                        '{!!
+                            $transaction['amount'].' '.$transaction['currency']
+                            .' / '.$transaction['period'].' '.$transaction['unit']
+                        !!}',
                         dateFormat({!! strtotime($transaction['start_at']) * 1000 !!}) +
                         @if ($end_at) ' - ' + dateFormat({!! strtotime($end_at) * 1000 !!}) @else '' @endif,
                         '{!!
