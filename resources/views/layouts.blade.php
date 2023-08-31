@@ -161,7 +161,7 @@
 </footer><!-- End Footer -->
 
 <div id="preloader"></div>
-<a href="javascript:void(0);" class="back-to-top d-flex align-items-center justify-content-center">
+<a href="#" class="back-to-top d-flex align-items-center justify-content-center scrollto">
     <i class="bi bi-arrow-up-short"></i>
 </a>
 
