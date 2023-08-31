@@ -54,8 +54,6 @@ class PayPalController extends Controller
     }
 
     public function webhook(Request $request) {
-        logger('webhook');
-        logger($request);
         $paypal = new PayPalSubscription();
         switch ($request['event_type']) {
             case 'BILLING.SUBSCRIPTION.CANCELLED':
@@ -75,19 +73,13 @@ class PayPalController extends Controller
                 }
                 break;
         }
-        if (!empty($subscription)) {
-            if (PayPalHelper::isActive($subscription)) {
-                $expires_on = PayPalHelper::getExpiresOn($subscription);
-                License::where('subscription_id', $subscription['id'])
-                    ->paymentMethod($this->payment_method)
-                    ->update([
-                        'expires_on' => date('Y-m-d H:i:s', strtotime($expires_on)),
-                    ]);
-            } else if (PayPalHelper::isCancelled($subscription)) {
-                License::where('subscription_id', $subscription['id'])
-                    ->paymentMethod($this->payment_method)
-                    ->delete();
-            }
+        if (!empty($subscription) && PayPalHelper::isActive($subscription)) {
+            $expires_on = PayPalHelper::getExpiresOn($subscription);
+            License::where('subscription_id', $subscription['id'])
+                ->paymentMethod($this->payment_method)
+                ->update([
+                    'expires_on' => date('Y-m-d H:i:s', strtotime($expires_on)),
+                ]);
         }
         if (!empty($payment) && !empty($subscription) && !empty($plan)) {
             $membership = Membership::paypal($subscription['plan_id'])->first();
