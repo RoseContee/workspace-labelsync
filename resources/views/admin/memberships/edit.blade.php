@@ -61,7 +61,7 @@
                                     </div>
                                     <div class="form-group">
                                         <label for="price">Price({{ currency() }}) <span class="required">*</span></label>
-                                        <input type="number" id="price" name="price"
+                                        <input type="text" id="price" name="price"
                                                class="form-control @error('price') is-invalid @enderror"
                                                value="{{ old('price', $membership['price'] ?? '') }}"
                                                placeholder="Membership Price" required>
@@ -73,7 +73,7 @@
                                     </div>
                                     <div class="form-group">
                                         <label for="origin_price">Origin Price({{ currency() }})</label>
-                                        <input type="number" id="origin_price" name="origin_price"
+                                        <input type="text" id="origin_price" name="origin_price"
                                                class="form-control @error('origin_price') is-invalid @enderror"
                                                value="{{ old('origin_price', $membership['origin_price'] ?? '') }}"
                                                placeholder="Membership Origin Price">
