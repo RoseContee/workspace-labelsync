@@ -23,7 +23,7 @@ class PayPalSubscription implements Subscription
                 'plan_id' => $plan['paypal_plan_id'],
                 'quantity' => '1',
                 'application_context' => [
-                    'brand_name' => $plan['name'].' for '.$site,
+                    'brand_name' => $plan['name'],
                     'locale' => 'en-US',
                     'shipping_preference' => 'NO_SHIPPING',
                     'user_action' => 'SUBSCRIBE_NOW',

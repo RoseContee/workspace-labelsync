@@ -40,32 +40,20 @@
 
         <nav id="navbar" class="navbar">
             <ul>
-                <li><a href="{{ route('home') }}#hero" class="nav-link scrollto active">{{ __('Home') }}</a></li>
-                <li><a href="{{ route('home') }}#about" class="nav-link scrollto">{{ __('About') }}</a></li>
-                <li><a href="{{ route('home') }}#services" class="nav-link scrollto">{{ __('Services') }}</a></li>
-                <li><a href="{{ route('home') }}#team" class="nav-link scrollto">{{ __('Team') }}</a></li>
-                <li><a href="{{ route('home') }}#pricing" class="nav-link scrollto">{{ __('Pricing') }}</a></li>
-                <li><a href="{{ route('home') }}#contact" class="nav-link scrollto">{{ __('Contact') }}</a></li>
-                @php $locale = session('locale', 'en'); @endphp
-                @if ($locale === 'en')
-                    <li class="dropdown">
-                        <a href="javascript:void(0);">
-                            <span>{{ __('English') }}</span> <i class="bi bi-chevron-down"></i>
-                        </a>
-                        <ul>
-                            <li><a href="{{ route('language', ['locale' => 'it']) }}">{{ __('Italian') }}</a></li>
-                        </ul>
-                    </li>
-                @else
-                    <li class="dropdown">
-                        <a href="javascript:void(0);">
-                            <span>{{ __('Italian') }}</span> <i class="bi bi-chevron-down"></i>
-                        </a>
-                        <ul>
-                            <li><a href="{{ route('language', ['locale' => 'en']) }}">{{ __('English') }}</a></li>
-                        </ul>
-                    </li>
-                @endif
+                <li><a href="{{ route('home') }}#hero" class="nav-link scrollto active">Home</a></li>
+                <li><a href="{{ route('home') }}#about" class="nav-link scrollto">About</a></li>
+                <li><a href="{{ route('home') }}#services" class="nav-link scrollto">Services</a></li>
+                <li><a href="{{ route('home') }}#team" class="nav-link scrollto">Team</a></li>
+                <li><a href="{{ route('home') }}#pricing" class="nav-link scrollto">Pricing</a></li>
+                <li><a href="{{ route('home') }}#contact" class="nav-link scrollto">Contact</a></li>
+                <li class="dropdown">
+                    <a href="javascript:void(0);">
+                        <span>English</span> <i class="bi bi-chevron-down"></i>
+                    </a>
+                    <ul>
+                        <li><a href="{{ route('language', ['locale' => 'it']) }}">Italian</a></li>
+                    </ul>
+                </li>
             </ul>
             <i class="bi bi-list mobile-nav-toggle"></i>
         </nav><!-- .navbar -->
@@ -84,56 +72,57 @@
         <div class="container">
             <div class="row">
                 <div class="col-lg-3 col-md-6 footer-contact">
-                    <h3>{{ __('Garofalo & Partners') }}</h3>
+                    <h3>Garofalo & Partners</h3>
                     <p class="mb-4 text-pre-line">{!! $settings['contact_address'] ?? '' !!}</p>
-                    <p><strong>{{ __('Phone') }}:</strong> {{ $settings['contact_phone'] ?? '' }}</p>
-                    <p><strong>{{ __('Email') }}:</strong> {{ $settings['contact_email'] ?? '' }}</p>
+                    <p><strong>Phone:</strong> {{ $settings['contact_phone'] ?? '' }}</p>
+                    <p><strong>Email:</strong> {{ $settings['contact_email'] ?? '' }}</p>
                 </div>
                 <div class="col-lg-3 col-md-6 footer-links">
-                    <h4>{{ __('Useful Links') }}</h4>
+                    <h4>Useful Links</h4>
                     <ul>
                         <li>
                             <i class="bx bx-chevron-right"></i>
-                            <a href="{{ route('home') }}" class="scrollto">{{ __('Home') }}</a>
+                            <a href="{{ route('home') }}" class="scrollto">Home</a>
                         </li>
                         <li>
                             <i class="bx bx-chevron-right"></i>
-                            <a href="{{ route('home') }}#about" class="scrollto">{{ __('About us') }}</a>
+                            <a href="{{ route('home') }}#about" class="scrollto">About us</a>
                         </li>
                         <li>
                             <i class="bx bx-chevron-right"></i>
-                            <a href="{{ route('home') }}#services" class="scrollto">{{ __('Services')}}</a>
+                            <a href="{{ route('home') }}#services" class="scrollto">Services</a>
                         </li>
                         <li>
                             <i class="bx bx-chevron-right"></i>
-                            <a href="{{ route('terms') }}">{{ __('Terms of service') }}</a>
+                            <a href="{{ route('terms') }}">Terms of service</a>
                         </li>
                         <li>
                             <i class="bx bx-chevron-right"></i>
-                            <a href="{{ route('privacy') }}">{{ __('Privacy policy') }}</a>
+                            <a href="{{ route('privacy') }}">Privacy policy</a>
                         </li>
                     </ul>
                 </div>
                 <div class="col-lg-3 col-md-6 footer-links">
-                    <h4>{{ __('Our Services') }}</h4>
+                    <h4>Our Services</h4>
                     <ul>
                         <li>
                             <i class="bx bx-chevron-right"></i>
-                            <a href="{{ route('home') }}#services" class="scrollto">{{ __('Custom Software Development') }}</a>
+                            <a href="{{ route('home') }}#services" class="scrollto">Custom Software Development</a>
                         </li>
                         <li>
                             <i class="bx bx-chevron-right"></i>
-                            <a href="{{ route('home') }}#services" class="scrollto">{{ __('Web and Mobile App Expertise') }}</a>
+                            <a href="{{ route('home') }}#services" class="scrollto">Web and Mobile App Expertise</a>
                         </li>
                         <li>
                             <i class="bx bx-chevron-right"></i>
-                            <a href="{{ route('home') }}#services" class="scrollto">{{ __('Cloud Solutions and Integration') }}</a>
+                            <a href="{{ route('home') }}#services" class="scrollto">Cloud Solutions and Integration</a>
                         </li>
                     </ul>
                 </div>
                 <div class="col-lg-3 col-md-6 footer-links">
-                    <h4>{{ __('Follow us') }}</h4>
-                    <p>{{ __('Discover our vibrant social network, connecting individuals through shared interests and meaningful interactions')}}</p>
+                    <h4>Follow us</h4>
+                    <p>Discover our vibrant social network, connecting individuals
+                        through shared interests and meaningful interactions</p>
                     <div class="social-links mt-3">
                         @if ($facebook = $settings['facebook_link'] ?? '')
                             <a href="{!! $facebook !!}" class="facebook"><i class="bx bxl-facebook"></i></a>
@@ -166,7 +155,7 @@
 </a>
 
 <div class="position-fixed bottom-0 end-0 p-3" style="z-index: 1000">
-    @include('partials.messages')
+    @include('homepage.en.partials.messages')
 </div>
 
 <!-- Vendor JS Files -->

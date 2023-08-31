@@ -11,6 +11,12 @@ use Illuminate\Support\Facades\Mail;
 
 class HomeController extends Controller
 {
+    public function setLanguage($locale) {
+        if (!in_array($locale, ['en', 'it'])) $locale = 'en';
+        session()->put('locale', $locale);
+        return redirect()->route('home');
+    }
+
     public function index() {
         $plans = Membership::active()
             ->where('paypal_plan_id', '!=', '')

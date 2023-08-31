@@ -25,8 +25,9 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::group([
-    'domain' => 'www.labelsync.it',
+    //'domain' => 'www.labelsync.it',
 ], function () {
+    Route::get('language/{locale}', [HomeController::class, 'setLanguage'])->name('language');
     Route::get('/', [HomeController::class, 'index'])->name('home');
     Route::post('contact', [HomeController::class, 'contact'])->name('contact');
     Route::get('terms', [HomeController::class, 'terms'])->name('terms');
@@ -44,8 +45,8 @@ Route::group([
 
 
 Route::group([
-    'domain' => 'admin.labelsync.it',
-    //'prefix' => 'admin',
+    //'domain' => 'admin.labelsync.it',
+    'prefix' => 'admin',
     'as' => 'admin.'
 ], function () {
     Route::group([
