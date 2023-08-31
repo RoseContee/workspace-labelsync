@@ -108,7 +108,6 @@
                     { title: 'No', width: 30, searchable: false },
                     { title: 'Name' },
                     { title: 'Price' },
-                    { title: 'Period' },
                     { title: 'Features' },
                     { title: 'Plan ID' },
                     { title: 'Description' },
@@ -153,8 +152,7 @@
                     [
                         '{!! ++$index !!}',
                         '{!! $membership['name'] !!}',
-                        '{!! $price.$origin_price !!}',
-                        '{!! $membership['period'].' '.$membership['unit'].'/user' !!}',
+                        '{!! $price.$origin_price.' per '.$membership['period'].' '.$membership['unit'].'/user' !!}',
                         '<ul class="list-unstyled">{!! $features !!}</ul>',
                         '{!! $plans !!}',
                         '{!! $membership['description'] !!}',
