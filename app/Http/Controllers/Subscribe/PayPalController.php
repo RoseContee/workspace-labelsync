@@ -93,7 +93,7 @@ class PayPalController extends Controller
                 'subscription_id' => $subscription['id'],
                 'membership_id' => $membership['id'] ?? null,
                 'payment_method' => $this->payment_method,
-                'email' => $payment['payee']['email_address'],
+                'email' => $subscription['subscriber']['email_address'],
                 'amount' => $payment['amount']['value'],
                 'currency' => $payment['amount']['currency_code'],
                 'period' => PayPalHelper::planPeriod($plan),
