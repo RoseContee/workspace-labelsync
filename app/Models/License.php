@@ -10,7 +10,8 @@ class License extends Model
     use HasFactory;
 
     protected $fillable = [
-        'email', 'key', 'expires_on', 'active', 'membership_id', 'transaction_id', 'note',
+        'email', 'key', 'expires_on', 'active',
+        'subscription_id', 'payment_method', 'note',
     ];
 
     public function scopeWhose($query, $email) {
@@ -25,11 +26,15 @@ class License extends Model
         $query->where('active', true);
     }
 
-    public function membership() {
-        return $this->belongsTo(Membership::class);
+    public function scopePaymentMethod($query, $payment_method) {
+        $query->where('payment_method', $payment_method);
     }
 
-    public function transaction() {
-        return $this->belongsTo(Transaction::class, 'transaction_id', 'transaction_id');
+    public function label() {
+        return $this->belongsTo(SyncLabel::class, 'email', 'email');
+    }
+
+    public function transactions() {
+        return $this->hasMany(Transaction::class, 'subscription_id', 'subscription_id');
     }
 }

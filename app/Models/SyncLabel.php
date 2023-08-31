@@ -16,4 +16,8 @@ class SyncLabel extends Model
     public function scopeMember($query, $email) {
         $query->where('members', 'like', '%"'.$email.'"%');
     }
+
+    public function license() {
+        return $this->belongsTo(License::class, 'email', 'email');
+    }
 }

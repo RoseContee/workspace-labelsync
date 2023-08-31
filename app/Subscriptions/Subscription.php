@@ -2,10 +2,12 @@
 
 namespace App\Subscriptions;
 
+use App\Models\Membership;
+
 interface Subscription
 {
-    public function create(int $plan_id);
-    public function cancel(string $subscription_id = null);
-    public function pause();
-    public function resume();
+    public function create(Membership $plan);
+    public function cancel(string $subscriptionId);
+    public function pause(string $subscriptionId);
+    public function resume(string $subscriptionId);
 }

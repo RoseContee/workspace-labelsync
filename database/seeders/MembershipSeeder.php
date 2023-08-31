@@ -16,7 +16,6 @@ class MembershipSeeder extends Seeder
         Membership::create([
             'name' => 'Non-Profit Plan',
             'price' => '29.90',
-            'origin_price' => null,
             'period' => 1,
             'unit' => 'year',
             'supported_features' => 'Core Features
@@ -24,16 +23,14 @@ Support by email
 Basic Integration',
             'unsupported_features' => 'Remote Support
 Standard Support',
-            'description' => null,
             'featured' => false,
             'active' => true,
-            'paypal_subscription_id' => '',
+            'paypal_plan_id' => '',
         ]);
 
         Membership::create([
             'name' => 'Edu Plan',
             'price' => '39.90',
-            'origin_price' => null,
             'period' => 1,
             'unit' => 'year',
             'supported_features' => 'Core Features
@@ -42,16 +39,14 @@ Basic Integration
 Remote Support
 Standard Support',
             'unsupported_features' => null,
-            'description' => null,
             'featured' => true,
             'active' => true,
-            'paypal_subscription_id' => '',
+            'paypal_plan_id' => '',
         ]);
 
         Membership::create([
             'name' => 'Business Plan',
             'price' => '59.99',
-            'origin_price' => null,
             'period' => 1,
             'unit' => 'year',
             'supported_features' => 'Core Features
@@ -60,10 +55,9 @@ Priority Support
 Remote Support
 On.site support (optional)',
             'unsupported_features' => null,
-            'description' => null,
             'featured' => false,
             'active' => true,
-            'paypal_subscription_id' => '',
+            'paypal_plan_id' => '',
         ]);
     }
 }

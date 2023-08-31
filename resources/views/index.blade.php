@@ -46,7 +46,7 @@
     <section id="about" class="about">
         <div class="container" data-aos="fade-up">
             <div class="section-title">
-                <h2>About {{ getSiteName($settings['site_name'] ?? null) }}</h2>
+                <h2>About {{ config('app.name') }}</h2>
             </div>
             <div class="row content">
                 <div class="col-lg-6">

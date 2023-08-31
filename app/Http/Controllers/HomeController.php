@@ -2,15 +2,18 @@
 
 namespace App\Http\Controllers;
 
+use App\Mail\ContactInfo;
 use App\Models\Contact;
 use App\Models\Membership;
+use App\Models\Setting;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Mail;
 
 class HomeController extends Controller
 {
     public function index() {
         $plans = Membership::active()
-            ->where('paypal_subscription_id', '!=', '')
+            ->where('paypal_plan_id', '!=', '')
             ->get();
         return view('index', [
             'plans' => $plans,
@@ -24,6 +27,18 @@ class HomeController extends Controller
             'subject' => ['required'],
             'message' => ['required'],
         ]);
+        if ($contact_email = Setting::getSetting('contact_email')) {
+            try {
+                Mail::to($contact_email)->send(new ContactInfo(
+                    $request['subject'],
+                    $request['name'],
+                    $request['email'],
+                    $request['message'],
+                ));
+            } catch (\Exception $exception) {
+                logger($exception);
+            }
+        }
         Contact::create([
             'name' => $request['name'],
             'email' => $request['email'],

@@ -1,7 +1,6 @@
 <?php
 
 use App\Http\Controllers\Extension\V1Controller;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -20,10 +19,10 @@ use Illuminate\Support\Facades\Route;
  */
 Route::group([
     'prefix' => 'app',
-], function() {
+], function () {
     Route::group([
-        'prefix'    => 'v1',
-    ], function() {
+        'prefix' => 'v1',
+    ], function () {
         Route::post('submit-key', [V1Controller::class, 'submitKey']);
         Route::post('recover-key', [V1Controller::class, 'recoverKey']);
         Route::post('admin-sync', [V1Controller::class, 'adminSync']);

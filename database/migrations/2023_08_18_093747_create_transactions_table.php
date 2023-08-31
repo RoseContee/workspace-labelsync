@@ -14,15 +14,17 @@ return new class extends Migration
         Schema::create('transactions', function (Blueprint $table) {
             $table->id();
             $table->string('transaction_id');
+            $table->string('subscription_id');
+            $table->string('payment_method');
+            $table->integer('membership_id')->nullable();
             $table->string('email');
             $table->decimal('amount');
+            $table->string('currency', 5);
             $table->integer('period');
             $table->string('unit');
-            $table->integer('membership_id')->nullable();
-            $table->dateTime('start_at')->nullable();
+            $table->dateTime('start_at');
             $table->dateTime('end_at')->nullable();
-            $table->enum('type', ['start', 'recurring']);
-            $table->enum('status', ['pending', 'completed', 'canceled', 'expired']);
+            $table->string('status', 20);
             $table->timestamps();
         });
     }

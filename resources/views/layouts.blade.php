@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8">
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
-    <title>@yield('title') | {{ getSiteName($settings['site_name'] ?? null) }}</title>
+    <title>@yield('title') | {{ config('app.name') }}</title>
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
     @yield('metadata')
@@ -32,7 +32,7 @@
 <header id="header" class="fixed-top ">
     <div class="container d-flex align-items-center">
         {{--<h1 class="logo me-auto">
-            <a href="{{ route('home') }}">{{ getSiteName($settings['site_name'] ?? null) }}</a>
+            <a href="{{ route('home') }}">{{ config('app.name') }}</a>
         </h1>--}}
         <a href="{{ route('home') }}" class="logo me-auto">
             <img src="{{ getLogo($settings['logo'] ?? null) }}" alt="Logo" class="img-fluid">
@@ -140,7 +140,7 @@
     </div>
     <div class="container footer-bottom clearfix">
         <div class="copyright">
-            &copy; Copyright <strong><span>{{ getSiteName($settings['site_name'] ?? null) }}</span></strong>.
+            &copy; Copyright <strong><span>{{ config('app.name') }}</span></strong>.
             All Rights Reserved
         </div>
         <div class="credits">
@@ -155,7 +155,7 @@
 </a>
 
 <div class="position-fixed bottom-0 end-0 p-3" style="z-index: 1000">
-    @include('partials.home-message')
+    @include('partials.messages')
 </div>
 
 <!-- Vendor JS Files -->

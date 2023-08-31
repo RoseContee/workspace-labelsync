@@ -10,17 +10,10 @@ class Transaction extends Model
     use HasFactory;
 
     protected $fillable = [
-        'transaction_id', 'email', 'amount', 'period', 'unit',
-        'membership_id', 'start_at', 'end_at', 'type', 'status',
+        'transaction_id', 'subscription_id', 'payment_method', 'membership_id',
+        'email', 'amount', 'currency', 'period', 'unit',
+        'start_at', 'end_at', 'status',
     ];
-
-    public function scopeWhose($query, $email) {
-        $query->where('email', $email);
-    }
-
-    public function scopeCompleted($query) {
-        $query->where('status', 'completed');
-    }
 
     public function membership() {
         return $this->belongsTo(Membership::class);

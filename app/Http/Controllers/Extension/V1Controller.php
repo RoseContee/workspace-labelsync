@@ -13,16 +13,18 @@ class V1Controller extends Controller
     public function submitKey(Request $request) {
         if (!($email = $request['email'])
             || !($key = $request['key'])
-            || !($license = License::whose($email)->key($key)->first())
+            || !($license = License::key($key)->first())
+            || (!$license['email'] && License::whose($email)->first())
+            || ($license['email'] && $license['email'] != $email)
         ) {
             return response()->json([
                 'success' => false,
                 'error' => null,
             ]);
         }
-        if (($isExpired = $license['expires_on'] < now()) || !$license['active']) {
+        if (($expired = now() >= $license['expires_on']) || !$license['active']) {
             SyncLabel::where('email', $email)->delete();
-            if ($isExpired) {
+            if ($expired) {
                 $error = 'Your license key has expired.';
             } else {
                 $error = 'Your license key has deactivated.';
@@ -34,6 +36,10 @@ class V1Controller extends Controller
                 'success' => false,
                 'error' => $error,
             ]);
+        }
+        if (!$license['email']) {
+            $license['email'] = $email;
+            $license->save();
         }
         return response()->json([
             'success' => true,
@@ -62,7 +68,7 @@ class V1Controller extends Controller
             || !($labels = $request['labels'] ?? '{}')
             || !is_string($labels)
             || !($license = License::whose($email)->key($key)->first())
-            || $license['expires_on'] < now()
+            || now() >= $license['expires_on']
             || !$license['active']
         ) {
             if (!empty($license)) SyncLabel::where('email', $email)->delete();

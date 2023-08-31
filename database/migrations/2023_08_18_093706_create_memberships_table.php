@@ -23,7 +23,7 @@ return new class extends Migration
             $table->text('description')->nullable();
             $table->boolean('featured')->default(false);
             $table->boolean('active')->default(true);
-            $table->string('paypal_subscription_id');
+            $table->string('paypal_plan_id');
             $table->timestamps();
             $table->softDeletes();
         });

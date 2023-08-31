@@ -13,12 +13,12 @@ return new class extends Migration
     {
         Schema::create('licenses', function (Blueprint $table) {
             $table->id();
-            $table->string('email')->unique();
+            $table->string('email')->nullable();
             $table->string('key');
             $table->dateTime('expires_on');
             $table->boolean('active')->default(true);
-            $table->integer('membership_id')->nullable();
-            $table->string('transaction_id')->nullable();
+            $table->string('subscription_id')->nullable();
+            $table->string('payment_method')->nullable();
             $table->text('note')->nullable();
             $table->timestamps();
         });

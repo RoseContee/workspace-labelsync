@@ -18,12 +18,6 @@ if (!function_exists('currency_format')) {
     }
 }
 
-if (!function_exists('getSiteName')) {
-    function getSiteName($name) {
-        return $name ?? env('APP_NAME', 'LabelSync');
-    }
-}
-
 if (!function_exists('getFavicon')) {
     function getFavicon($favicon) {
         if ($favicon && file_exists(public_path($favicon))) {

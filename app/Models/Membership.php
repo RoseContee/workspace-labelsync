@@ -14,10 +14,18 @@ class Membership extends Model
         'name', 'price', 'origin_price', 'period', 'unit',
         'supported_features', 'unsupported_features', 'description',
         'featured', 'active',
-        'paypal_subscription_id',
+        'paypal_plan_id',
     ];
+
+    public function scopeFeatured($query) {
+        $query->where('featured', true);
+    }
 
     public function scopeActive($query) {
         $query->where('active', true);
+    }
+
+    public function scopePaypal($query, $plan) {
+        $query->where('paypal_plan_id', $plan);
     }
 }
