@@ -27,11 +27,11 @@
                 </label>
             @enderror
         </div>
-        <p class="mb-0">
+        <div>
             <button type="submit" class="btn btn-primary btn-block">Request new password</button>
-        </p>
-        <p class="text-center mt-2 mb-0">
+        </div>
+        <div class="text-center mt-2">
             <a href="{{ route('admin.login') }}">Back to Login</a>
-        </p>
+        </div>
     </form>
 @endsection

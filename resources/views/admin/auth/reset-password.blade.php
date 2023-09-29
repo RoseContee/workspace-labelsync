@@ -28,13 +28,15 @@
                 </label>
             @enderror
         </div>
-        <div class="input-group mb-3">
-            <input type="password" id="password" name="password"
-                   class="form-control @error('password') is-invalid @enderror"
-                   placeholder="New Password" required>
-            <div class="input-group-append">
-                <div class="input-group-text">
-                    <span class="fas fa-lock"></span>
+        <div class="mb-3">
+            <div class="input-group">
+                <input type="password" id="password" name="password"
+                       class="form-control @error('password') is-invalid @enderror"
+                       placeholder="New Password" required>
+                <div class="input-group-append">
+                    <div class="input-group-text">
+                        <span class="fas fa-lock"></span>
+                    </div>
                 </div>
             </div>
             @error('password')
@@ -43,13 +45,15 @@
                 </label>
             @enderror
         </div>
-        <div class="input-group mb-3">
-            <input type="password" id="password_confirmation" name="password_confirmation"
-                   class="form-control @error('password_confirmation') is-invalid @enderror"
-                   placeholder="Confirm Password" required>
-            <div class="input-group-append">
-                <div class="input-group-text">
-                    <span class="fas fa-lock"></span>
+        <div class="mb-3">
+            <div class="input-group">
+                <input type="password" id="password_confirmation" name="password_confirmation"
+                       class="form-control @error('password_confirmation') is-invalid @enderror"
+                       placeholder="Confirm Password" required>
+                <div class="input-group-append">
+                    <div class="input-group-text">
+                        <span class="fas fa-lock"></span>
+                    </div>
                 </div>
             </div>
             @error('password_confirmation')
@@ -58,11 +62,11 @@
                 </label>
             @enderror
         </div>
-        <p class="mb-0">
+        <div>
             <button type="submit" class="btn btn-primary btn-block">Reset password</button>
-        </p>
-        <p class="text-center mt-2 mb-0">
+        </div>
+        <div class="text-center mt-2">
             <a href="{{ route('admin.login') }}">Back to Login</a>
-        </p>
+        </div>
     </form>
 @endsection

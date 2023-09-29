@@ -1,6 +1,6 @@
 @extends('admin.auth.layouts')
 
-@section('title', 'Login')
+@section('title', 'Admin Login')
 
 @section('content')
     <p class="login-box-msg">Sign in</p>
@@ -27,13 +27,15 @@
                 </label>
             @enderror
         </div>
-        <div class="input-group mb-3">
-            <input type="password" id="password" name="password"
-                   class="form-control @error('password') is-invalid @enderror"
-                   placeholder="Password" required>
-            <div class="input-group-append">
-                <div class="input-group-text">
-                    <span class="fas fa-lock"></span>
+        <div class="mb-3">
+            <div class="input-group">
+                <input type="password" id="password" name="password"
+                       class="form-control @error('password') is-invalid @enderror"
+                       placeholder="Password" required>
+                <div class="input-group-append">
+                    <div class="input-group-text">
+                        <span class="fas fa-lock"></span>
+                    </div>
                 </div>
             </div>
             @error('password')
@@ -58,8 +60,8 @@
                 </p>
             </div>
         </div>
-        <p class="mb-0">
+        <div>
             <button type="submit" class="btn btn-primary btn-block">Sign In</button>
-        </p>
+        </div>
     </form>
 @endsection

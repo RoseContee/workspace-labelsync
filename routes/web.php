@@ -85,7 +85,7 @@ Route::group([
         Route::post('update-password', [ProfileController::class, 'updatePassword'])->name('update-password');
 
         Route::get('logout', function () {
-            auth()->logout();
+            auth('admin')->logout();
             return redirect()->route('admin.login');
         })->name('logout');
     });
